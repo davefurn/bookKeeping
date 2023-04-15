@@ -12,6 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:bookkeep_app/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../extension/size_config.dart';
@@ -29,30 +30,34 @@ class OnClickToNewPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: EdgeInsets.only(
-          left: getProportionateScreenWidth(20),
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          text1,
+          style: const TextStyle(
+            fontFamily: 'Livvic',
+            fontWeight: FontWeight.w500,
+            fontSize: 16,
+            color: BookKeepingColors.secondaryColor,
+          ),
         ),
-        child: Row(children: [
-          Text(
-            text1,
-            style: const TextStyle(
-              fontFamily: 'Livvic',
-              fontWeight: FontWeight.w400,
-              fontSize: 14,
-              color: Color(0xff32322F),
+        SizedBox(
+          width: getProportionateScreenWidth(8),
+        ),
+        InkWell(
+          onTap: onTap,
+          child: Text(
+            text2,
+            style: Theme.of(context).textTheme.labelMedium!.copyWith(
+            fontSize: 16,
+            fontWeight: FontWeight.w500,
+            color: BookKeepingColors.mainColor
             ),
           ),
-          SizedBox(
-            width: getProportionateScreenWidth(8),
-          ),
-          InkWell(
-            onTap: onTap,
-            child: Text(
-              text2,
-              style: Theme.of(context).textTheme.labelMedium,
-            ),
-          ),
-        ],),);
+        ),
+      ],
+    );
   }
 }

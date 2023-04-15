@@ -130,14 +130,33 @@ class _LoginState extends State<Login> {
           key: _formKey,
           child: Column(
             children: [
+              Padding(
+                padding: EdgeInsets.only(
+                  top: getProportionateScreenHeight(58.25),
+                  left: getProportionateScreenWidth(24.69),
+                ),
+                child: backButton(context),
+              ),
               TitleWidget(
-                text: 'User Sign In',
-                pDleft: getProportionateScreenWidth(20),
-                height: getProportionateScreenHeight(36),
-                fontSize: 24,
+                text: 'Log In',
+                pDtop:  getProportionateScreenHeight(157.25),
+                pDleft: getProportionateScreenWidth(25),
+                fontSize: 32,
+              ),
+              SizedBox(height: getProportionateScreenHeight(8),),
+              Padding(
+                padding:  EdgeInsets.only(
+                  right: getProportionateScreenWidth(53),
+                ),
+                child: Text(
+                  "Kindly enter login details to get access to account",
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                        fontSize: 16,
+                      ),
+                ),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(48),
+                height: getProportionateScreenHeight(87),
               ),
               CustomTextInput(
                   onSaved: (newValue) => email = newValue,
@@ -160,7 +179,7 @@ class _LoginState extends State<Login> {
                   },
                   validate: _validate,
                   textInputAction: TextInputAction.next,
-                  titleText: 'Email',
+                  hintText: 'Email Address',
                   keyboardType: TextInputType.emailAddress,
                   controller: emailController,
                   suffixIcon: IconButton(
@@ -201,9 +220,9 @@ class _LoginState extends State<Login> {
                 validate: _validate,
                 textInputAction: TextInputAction.done,
                 expands: false,
-                obscureText: true,
+                obscureText: isVisible ? false : true,
                 keyboardType: TextInputType.visiblePassword,
-                titleText: 'Password',
+                hintText: 'Password',
                 controller: passwordController,
                 suffixIcon: IconButton(
                   icon: Icon(
@@ -218,21 +237,22 @@ class _LoginState extends State<Login> {
                 ),
               ),
               SizedBox(
-                height: getProportionateScreenHeight(28),
+                height: getProportionateScreenHeight(148),
               ),
               CustomButton(
+                color: BookKeepingColors.mainColor,
                 thickLine: 1,
                 onpressed: signin,
-                text: 'Sign in',
+                text: 'Login',
                 textcolor: BookKeepingColors.backgroundColour,
               ),
-              SizedBox(height: getProportionateScreenHeight(25)),
+              SizedBox(height: getProportionateScreenHeight(42)),
               OnClickToNewPage(
                 text1: 'Don\'t have an account?',
                 onTap: () {
                   pushTo(context, const SignUp());
                 },
-                text2: 'Create one',
+                text2: 'Sign Up',
               ),
             ],
           ),

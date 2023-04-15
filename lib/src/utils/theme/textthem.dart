@@ -12,22 +12,25 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import 'package:bookkeep_app/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 
 class TextsTheme {
-  static TextTheme lightTheme = const TextTheme(
+  static TextTheme lightTheme =  const TextTheme(
     //titles
     headlineLarge: TextStyle(
       fontFamily: 'Livvic',
       fontWeight: FontWeight.w700,
       fontSize: 23,
+      color: BookKeepingColors.secondaryColor,
     ),
     //elevated buttons
     labelMedium: TextStyle(
       fontFamily: 'Livvic',
       fontWeight: FontWeight.w700,
       fontSize: 19,
+      color: BookKeepingColors.secondaryColor,
     ),
 
     // for chats user
@@ -35,12 +38,14 @@ class TextsTheme {
       fontFamily: 'Livvic',
       fontWeight: FontWeight.w700,
       fontSize: 13,
+      color: BookKeepingColors.secondaryColor,
     ),
     //reply bot
-    bodySmall : TextStyle(
+    bodySmall :  TextStyle(
       fontFamily: 'Livvic',
       fontWeight: FontWeight.w400,
       fontSize: 13,
+      color: BookKeepingColors.secondaryColor,
     ),
     
 

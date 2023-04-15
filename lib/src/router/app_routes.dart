@@ -136,6 +136,7 @@ GestureDetector backButton(BuildContext context) {
       child: Icon(
         Icons.arrow_back,
         size: 20,
+      
       ),
     ),
   );

@@ -51,7 +51,7 @@ class MyApp extends StatelessWidget {
               title: 'Flutter Demo',
               debugShowCheckedModeBanner: false,
               darkTheme: BookKeepTheme.darkTheme,
-              themeMode: settingsViewModel.themeMode,
+              themeMode: ThemeMode.system,
               theme: BookKeepTheme.lightTheme,
               initialRoute: BookKeepRoute.login,
               onGenerateRoute: (RouteSettings settings) {

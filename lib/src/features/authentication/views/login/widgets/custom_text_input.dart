@@ -44,7 +44,7 @@ class CustomTextInput extends StatelessWidget {
   final bool? enabled;
   final void Function()? onTap;
   final String? hintText;
-  final String titleText;
+  final String? titleText;
   final String? prefixPath;
   final Widget? suffixIcon;
   const CustomTextInput({
@@ -71,7 +71,7 @@ class CustomTextInput extends StatelessWidget {
     this.suffixIcon,
     this.prefixIcon,
     this.prefixPath,
-    required this.titleText,
+     this.titleText,
     this.hpD,
     required this.validate,
     this.onSaved,
@@ -88,13 +88,6 @@ class CustomTextInput extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            titleText,
-            style: Theme.of(context).textTheme.bodyMedium,
-          ),
-          SizedBox(
-            height: getProportionateScreenHeight(8),
-          ),
           TextFormField(
             
             controller: controller,
@@ -129,30 +122,32 @@ class CustomTextInput extends StatelessWidget {
               //   horizontal: prefix != null ? 15.w : 12.w,
               // ),
               prefixIcon: null,
-              suffixIcon: suffixIcon != null
-                  ? Icon(
-                      prefixIcon,
-                      size: 24,
-                      color:BookKeepingColors.secondaryColor,
-                    )
-                  : null,
+              suffixIcon: suffixIcon,
               hintText: hintText,
+              hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
+                fontSize: 14,
+              ),
               fillColor: BookKeepingColors.backgroundColour,
               filled: true,
+              disabledBorder:OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(color: Color(0xffEAECF4)),
+              ) ,
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: BookKeepingColors.mainColor),
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(color: Color(0xffEAECF4)),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(4),
                 borderSide: const BorderSide(color: BookKeepingColors.mainColor),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(4),
                 borderSide: const BorderSide(color: BookKeepingColors.mainColor),
               ),
+              
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
+                borderRadius: BorderRadius.circular(4),
                 borderSide: const BorderSide(
                   color: BookKeepingColors.failureColor,
                 ),

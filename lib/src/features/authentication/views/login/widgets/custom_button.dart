@@ -44,10 +44,10 @@ class CustomButton extends StatelessWidget {
         ),
         child: Text(
           text,
-          style: TextStyle(
-            fontSize: 16,
-            color: textcolor,
-          ),
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+            fontSize: 14,
+            color: BookKeepingColors.backgroundColour,
+          )
         ),
       ),
     );
