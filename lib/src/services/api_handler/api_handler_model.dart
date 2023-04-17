@@ -20,11 +20,10 @@ class ResponseModel<T> {
   late String token;
   late T? data;
 
-  ResponseModel({valid, message, statusCode, data, error, token}) {
+  ResponseModel({valid, message, statusCode, this.data, error, token}) {
     this.valid = valid ?? false;
     this.message = message ?? '';
     this.statusCode = statusCode ?? 000;
-    this.data = data;
     this.token = token ?? '';
     this.error = error ?? ErrorModel();
   }

@@ -46,8 +46,9 @@ class TitleWidget extends StatelessWidget {
       child: Align(
         alignment: Alignment.topLeft,
         child: SizedBox(
+    
 
-          width: width ?? getProportionateScreenWidth(170),
+          width: width ?? getProportionateScreenWidth(250),
           child: Text(
             textAlign: textAlign ?? TextAlign.start,
             text,

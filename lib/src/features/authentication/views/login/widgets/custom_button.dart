@@ -1,11 +1,11 @@
 // Copyright 2023 Davefurn
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -16,6 +16,7 @@ import 'package:bookkeep_app/src/constants/colors.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../../extension/size_config.dart';
+
 class CustomButton extends StatelessWidget {
   final double? hpD;
   final String text;
@@ -25,7 +26,14 @@ class CustomButton extends StatelessWidget {
   final Color? borderColor;
   final double thickLine;
   const CustomButton(
-      {super.key, this.hpD, required this.text, required this.onpressed, this.color, this.textcolor, required this.thickLine, this.borderColor});
+      {super.key,
+      this.hpD,
+      required this.text,
+      required this.onpressed,
+      this.color,
+      this.textcolor,
+      required this.thickLine,
+      this.borderColor});
 
   @override
   Widget build(BuildContext context) {
@@ -42,13 +50,12 @@ class CustomButton extends StatelessWidget {
             color: borderColor ?? BookKeepingColors.mainColor,
           ),
         ),
-        child: Text(
-          text,
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-            fontSize: 14,
-            color: BookKeepingColors.backgroundColour,
-          )
-        ),
+        child: Text(text,
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontSize: 20,
+                  color: BookKeepingColors.backgroundColour,
+                  fontWeight: FontWeight.w600,
+                )),
       ),
     );
   }

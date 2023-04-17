@@ -9,10 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'src/features/settings/models/settings_models.dart';
 
-
 void main() async {
-  
- 
   runApp(ProviderScope(
     child: MyApp(
       navigatorKey: navigatorKey,
@@ -47,13 +44,12 @@ class MyApp extends StatelessWidget {
           builder: (BuildContext context, Widget? child) {
             return MaterialApp(
               restorationScopeId: 'app',
-
-              title: 'Flutter Demo',
+              title: 'Kuro Bookkeeping',
               debugShowCheckedModeBanner: false,
               darkTheme: BookKeepTheme.darkTheme,
               themeMode: ThemeMode.system,
               theme: BookKeepTheme.lightTheme,
-              initialRoute: BookKeepRoute.login,
+              initialRoute: BookKeepRoute.signUp,
               onGenerateRoute: (RouteSettings settings) {
                 return BookKeepRoute.fadeThrough(settings, (context) {
                   switch (settings.name) {

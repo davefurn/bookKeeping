@@ -110,10 +110,12 @@ class CustomTextInput extends StatelessWidget {
             onEditingComplete: onEditingComplete,
             onTap: onTap,
             enabled: enabled,
+            cursorHeight: 19,
             style: const TextStyle(
               fontFamily: 'Livvic',
               fontWeight: FontWeight.w400,
               fontSize: 20,
+              height: 1,
               color: Color(0xFF1F2937),
             ),
             decoration: InputDecoration(

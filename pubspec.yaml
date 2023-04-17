@@ -37,6 +37,7 @@ dependencies:
   flutter_riverpod: ^2.3.4
   flutter_svg: ^1.1.6
   shared_preferences: ^2.1.0
+  pin_code_fields: ^7.4.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

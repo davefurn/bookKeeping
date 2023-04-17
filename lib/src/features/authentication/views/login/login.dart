@@ -19,12 +19,11 @@ import 'package:bookkeep_app/src/features/authentication/views/login/widgets/sma
 import 'package:bookkeep_app/src/features/authentication/views/login/widgets/title.dart';
 import 'package:bookkeep_app/src/features/authentication/views/signUp/sign_up.dart';
 import 'package:bookkeep_app/src/router/app_routes.dart';
-import 'package:bookkeep_app/src/router/router.dart';
 import 'package:flutter/material.dart';
-
 import '../../../../dialogs/dialogs.dart';
 import '../../../../extension/string_extension.dart';
 import '../../../../extension/size_config.dart';
+import '../../../../widgets/space_btwn_text_input.dart';
 import '../../../home/views/home.dart';
 
 class Login extends StatefulWidget {
@@ -59,7 +58,7 @@ class _LoginState extends State<Login> {
         backgroundColor: Colors.transparent,
         behavior: SnackBarBehavior.floating,
         content: Snackingbar(
-          icon: "assets/svg/Vector (4).svg",
+          icon: "assets/svgs/icons/Vector (4).svg",
           text: 'Successful',
           colorBorder: const Color(0xff16A34A).withOpacity(.70),
           colors: [
@@ -75,27 +74,9 @@ class _LoginState extends State<Login> {
       // and use it to show a SnackBar.
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       Future.delayed(const Duration(seconds: 1), () {
-        pushToAndClearStack(context, const Home());
+        CustomRoutes.fadeIn(const Home());
       });
-    } else {
-      final snackBar = SnackBar(
-        elevation: 0,
-        backgroundColor: Colors.transparent,
-        behavior: SnackBarBehavior.floating,
-        content: Snackingbar(
-          icon: "assets/svg/Vector (5).svg",
-          text: 'Error',
-          colors: [
-            const Color(0xffDD3333).withOpacity(.50),
-            const Color(0xffFD0707).withOpacity(.12),
-          ],
-          colorBorder: const Color(0xffDD3333).withOpacity(.50),
-          iconColor: const Color(0xffDD3333),
-          textColor: const Color(0xffDD3333),
-        ),
-      );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
-    }
+    } 
   }
 
   @override
@@ -133,20 +114,20 @@ class _LoginState extends State<Login> {
               Padding(
                 padding: EdgeInsets.only(
                   top: getProportionateScreenHeight(58.25),
-                  left: getProportionateScreenWidth(24.69),
+                  left: getProportionateScreenWidth(20),
                 ),
                 child: backButton(context),
               ),
               TitleWidget(
                 text: 'Log In',
                 pDtop:  getProportionateScreenHeight(157.25),
-                pDleft: getProportionateScreenWidth(25),
+                pDleft: getProportionateScreenWidth(20),
                 fontSize: 32,
               ),
               SizedBox(height: getProportionateScreenHeight(8),),
               Padding(
                 padding:  EdgeInsets.only(
-                  right: getProportionateScreenWidth(53),
+                  right: getProportionateScreenWidth(60),
                 ),
                 child: Text(
                   "Kindly enter login details to get access to account",
@@ -189,9 +170,7 @@ class _LoginState extends State<Login> {
                     ),
                     onPressed: () {},
                   )),
-              SizedBox(
-                height: getProportionateScreenHeight(16),
-              ),
+             const TextInputSpace(),
               CustomTextInput(
                 onSaved: (newValue) => password = newValue,
                 onChanged: (value) {
@@ -212,7 +191,7 @@ class _LoginState extends State<Login> {
                     return "Password is too short";
                   } else if (!passWordalidatorExp.hasMatch(value)) {
                     addError(error: kPassNull2Error);
-                    return "Enter a valid password";
+                    return "Atleast a capital, small letter, special character, and digit are needed";
                   }
                   return null;
                 },
@@ -261,3 +240,4 @@ class _LoginState extends State<Login> {
     );
   }
 }
+

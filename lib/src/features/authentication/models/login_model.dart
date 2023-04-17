@@ -31,14 +31,14 @@ class LoginModel {
   int? statusCode;
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
-        accessToken: json["access_token"] ?? null,
-        message: json["message"] ?? null,
-        statusCode: json["status_code"] ?? null,
+        accessToken: json["access_token"],
+        message: json["message"],
+        statusCode: json["status_code"],
       );
 
   Map<String, dynamic> toJson() => {
-        "access_token": accessToken ?? null,
-        "message": message ?? null,
-        "status_code": statusCode ?? null,
+        "access_token": accessToken,
+        "message": message,
+        "status_code": statusCode,
       };
 }
