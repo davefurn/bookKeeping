@@ -20,13 +20,15 @@ import '../../../../../extension/size_config.dart';
 
 class CustomTextInput extends StatelessWidget {
   
-  final bool validate;
+  
   final double? hpD;
   final IconData? prefixIcon;
   final TextEditingController? controller;
   final FocusNode? focusNode;
   final TextInputType? keyboardType;
   final TextInputAction? textInputAction;
+  final AutovalidateMode? autovalidateMode;
+
   final bool readOnly;
   final bool autofocus;
   final String obscuringCharacter;
@@ -73,9 +75,9 @@ class CustomTextInput extends StatelessWidget {
     this.prefixPath,
      this.titleText,
     this.hpD,
-    required this.validate,
+  
     this.onSaved,
-    this.validator,
+    this.validator, this.autovalidateMode,
   }) : super(key: key);
 
   @override
@@ -89,7 +91,7 @@ class CustomTextInput extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           TextFormField(
-            
+            autovalidateMode: autovalidateMode,
             controller: controller,
             cursorColor: Colors.black,
             onSaved: onSaved,
@@ -128,30 +130,34 @@ class CustomTextInput extends StatelessWidget {
               hintText: hintText,
               hintStyle: Theme.of(context).textTheme.bodySmall!.copyWith(
                 fontSize: 14,
+                color: const Color(0xffAEB0B9)
               ),
               fillColor: BookKeepingColors.backgroundColour,
               filled: true,
-              disabledBorder:OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
-                borderSide: const BorderSide(color: Color(0xffEAECF4)),
-              ) ,
+
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),
-                borderSide: const BorderSide(color: Color(0xffEAECF4)),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),
-                borderSide: const BorderSide(color: BookKeepingColors.mainColor),
+                borderSide: const BorderSide(color: Color(0xffEAECF4), width: 2),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),
-                borderSide: const BorderSide(color: BookKeepingColors.mainColor),
+                borderSide: const BorderSide(color: BookKeepingColors.mainColor,  width: 2),
               ),
-              
+              focusedErrorBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(4),
+                borderSide: const BorderSide(
+                  color: BookKeepingColors.failureColor,
+                   width: 2
+                ),
+              ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(4),
                 borderSide: const BorderSide(
                   color: BookKeepingColors.failureColor,
+                   width: 2
                 ),
               ),
             ),

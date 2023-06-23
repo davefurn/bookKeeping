@@ -36,7 +36,7 @@ class PasswordQueries extends StatelessWidget {
           Text(
             text,
             style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontSize: 14,
+                  fontSize: 14, 
                 ),
           )
         ],

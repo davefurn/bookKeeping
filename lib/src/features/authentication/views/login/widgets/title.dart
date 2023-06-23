@@ -1,11 +1,11 @@
 // Copyright 2023 Davefurn
-// 
+//
 // Licensed under the Apache License, Version 2.0 (the "License");
 // you may not use this file except in compliance with the License.
 // You may obtain a copy of the License at
-// 
+//
 //     http://www.apache.org/licenses/LICENSE-2.0
-// 
+//
 // Unless required by applicable law or agreed to in writing, software
 // distributed under the License is distributed on an "AS IS" BASIS,
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -15,6 +15,7 @@
 import 'package:flutter/material.dart';
 
 import '../../../../../extension/size_config.dart';
+
 class TitleWidget extends StatelessWidget {
   final String text;
   final double? pDtop;
@@ -32,7 +33,8 @@ class TitleWidget extends StatelessWidget {
     this.pDright,
     this.width,
     this.height,
-    this.textAlign, this.fontSize,
+    this.textAlign,
+    this.fontSize,
   });
 
   @override
@@ -46,16 +48,12 @@ class TitleWidget extends StatelessWidget {
       child: Align(
         alignment: Alignment.topLeft,
         child: SizedBox(
-    
-
-          width: width ?? getProportionateScreenWidth(250),
+          width: width ?? double.maxFinite,
           child: Text(
             textAlign: textAlign ?? TextAlign.start,
             text,
-            style: Theme.of(context)
-                .textTheme
-                .headlineLarge
-                ?.copyWith(fontSize: fontSize ?? 28, fontWeight: FontWeight.w600),
+            style: Theme.of(context).textTheme.headlineLarge?.copyWith(
+                fontSize: fontSize ?? 28, fontWeight: FontWeight.w600),
           ),
         ),
       ),

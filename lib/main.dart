@@ -1,17 +1,23 @@
-import 'package:bookkeep_app/src/features/authentication/views/login/login.dart';
-import 'package:bookkeep_app/src/features/authentication/views/signUp/sign_up.dart';
-import 'package:bookkeep_app/src/features/home/views/home.dart';
-import 'package:bookkeep_app/src/features/settings/views/settings_view.dart';
-import 'package:bookkeep_app/src/router/router.dart';
+import 'package:bookkeep_app/src/features/authentication/views/auth/auth.dart';
+import 'package:bookkeep_app/src/services/local_storage.dart';
 import 'package:bookkeep_app/src/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
+import 'package:flutter/services.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'src/features/settings/models/settings_models.dart';
 
 void main() async {
+   WidgetsFlutterBinding.ensureInitialized();
+  
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+  ]);
+  var firstTime = await LocalStorage.instance.getFirstTime();
   runApp(ProviderScope(
     child: MyApp(
+      firstTime: firstTime,
       navigatorKey: navigatorKey,
     ),
   ));
@@ -23,10 +29,16 @@ void main() async {
 
 // }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  final bool firstTime;
   final GlobalKey<NavigatorState> navigatorKey;
-  const MyApp({super.key, required this.navigatorKey});
+  const MyApp({super.key, required this.navigatorKey, required this.firstTime});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -39,36 +51,17 @@ class MyApp extends StatelessWidget {
           FocusManager.instance.primaryFocus?.unfocus();
         }
       },
-      child: AnimatedBuilder(
-          animation: settingsViewModel,
-          builder: (BuildContext context, Widget? child) {
+      child: ScreenUtilInit(
+          designSize: const Size(429, 730),
+          builder: (context, _) {
             return MaterialApp(
               restorationScopeId: 'app',
               title: 'Kuro Bookkeeping',
               debugShowCheckedModeBanner: false,
               darkTheme: BookKeepTheme.darkTheme,
-              themeMode: ThemeMode.system,
+              themeMode: ThemeMode.light,
               theme: BookKeepTheme.lightTheme,
-              initialRoute: BookKeepRoute.signUp,
-              onGenerateRoute: (RouteSettings settings) {
-                return BookKeepRoute.fadeThrough(settings, (context) {
-                  switch (settings.name) {
-                    case BookKeepRoute.main:
-                      return const Home();
-                    case BookKeepRoute.signUp:
-                      return const SignUp();
-                    case BookKeepRoute.login:
-                      return const Login();
-                    case BookKeepRoute.settings:
-                      return SettingsView(
-                        viewModel: settingsViewModel,
-                        navigatorKey: navigatorKey,
-                      );
-                    default:
-                      return const Login();
-                  }
-                });
-              },
+              home: const Auth(),
             );
           }),
     );

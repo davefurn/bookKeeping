@@ -30,14 +30,16 @@ environment:
 # versions available, run `flutter pub outdated`.
 dependencies:
   animations: ^2.0.7
+  another_flushbar: ^1.12.30
   cupertino_icons: ^1.0.2
   dio: ^4.0.6
   flutter:
     sdk: flutter
   flutter_riverpod: ^2.3.4
+  flutter_screenutil: ^5.8.4
   flutter_svg: ^1.1.6
-  shared_preferences: ^2.1.0
   pin_code_fields: ^7.4.0
+  shared_preferences: ^2.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0

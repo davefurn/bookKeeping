@@ -12,7 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class AppEndpoints {
-  static const String baseUrl = 'https://bookkeepingapi.up.railway.app';
-  static const String login = '/auth/jwt/create';
-}
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+final currentIndexProvider = StateProvider((ref) => 0);

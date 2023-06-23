@@ -13,32 +13,33 @@
 // limitations under the License.
 
 import 'package:bookkeep_app/src/constants/colors.dart';
+import 'package:bookkeep_app/src/features/Business_registration/view/business_reg.dart';
 import 'package:bookkeep_app/src/features/authentication/views/login/widgets/custom_button.dart';
 import 'package:bookkeep_app/src/features/authentication/views/login/widgets/custom_text_input.dart';
 import 'package:bookkeep_app/src/features/authentication/views/login/widgets/smal_text_under_button.dart';
 import 'package:bookkeep_app/src/features/authentication/views/login/widgets/title.dart';
-import 'package:bookkeep_app/src/features/authentication/views/signUp/sign_up.dart';
+
 import 'package:bookkeep_app/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
+import '../../../../dialogs/dialogs.dart';
 import '../../../../extension/string_extension.dart';
 import '../../../../extension/size_config.dart';
-import '../../../../services/post_requests.dart';
 import '../../../../widgets/space_btwn_text_input.dart';
+import '../../../home/views/home.dart';
 
-class Login extends StatefulWidget {
-  const Login({super.key});
+class LoginService extends StatefulWidget {
+  const LoginService({super.key});
 
   @override
-  State<Login> createState() => _LoginState();
+  State<LoginService> createState() => _LoginServiceState();
 }
 
-class _LoginState extends State<Login> {
+class _LoginServiceState extends State<LoginService> {
   bool isVisible = false;
-
+  String? email;
+  String? password;
   final _formKey = GlobalKey<FormState>();
   final List<String?> errors = [];
-
-  bool submitted = false;
   late TextEditingController emailController;
   late TextEditingController passwordController;
   @override
@@ -48,15 +49,34 @@ class _LoginState extends State<Login> {
     emailController = TextEditingController();
   }
 
-  Future<void> verify() async {
-    await PostRequest.fetchBearerToken(
-      context,
-      login: true,
-      email: emailController.text,
-      password: passwordController.text,
-    );
+  void signin() async {
+    if (_formKey.currentState!.validate()) {
+      _formKey.currentState!.save();
+      // if all are valid then go to success screen
+      final snackBar = SnackBar(
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        behavior: SnackBarBehavior.floating,
+        content: Snackingbar(
+          icon: "assets/svgs/icons/Vector (4).svg",
+          text: 'Successful',
+          colorBorder: const Color(0xff16A34A).withOpacity(.70),
+          colors: [
+            const Color(0xff00FF5E).withOpacity(.13),
+            const Color(0xff16A34A).withOpacity(.49)
+          ],
+          iconColor: const Color(0xff11833B),
+          textColor: const Color(0xff11833B),
+        ),
+      );
 
-    await Future.delayed(const Duration(milliseconds: 500));
+      // Find the ScaffoldMessenger in the widget tree
+      // and use it to show a SnackBar.
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+      Future.delayed(const Duration(seconds: 1), () {
+        CustomRoutes.fadeIn(const Home());
+      });
+    } 
   }
 
   @override
@@ -100,16 +120,15 @@ class _LoginState extends State<Login> {
             ),
             TitleWidget(
               text: 'Log In',
-              pDtop: getProportionateScreenHeight(157.25),
+              pDtop:  getProportionateScreenHeight(157.25),
               pDleft: getProportionateScreenWidth(20),
               fontSize: 32,
             ),
-            SizedBox(
-              height: getProportionateScreenHeight(8),
-            ),
+            SizedBox(height: getProportionateScreenHeight(8),),
             Padding(
-              padding: EdgeInsets.only(
-                left: getProportionateScreenWidth(20),
+              padding:  EdgeInsets.only(
+               
+                left:  getProportionateScreenWidth(20),
               ),
               child: Align(
                 alignment: Alignment.topLeft,
@@ -125,6 +144,7 @@ class _LoginState extends State<Login> {
               height: getProportionateScreenHeight(87),
             ),
             CustomTextInput(
+                onSaved: (newValue) => email = newValue,
                 onChanged: (value) {
                   if (value.isNotEmpty) {
                     removeError(error: kEmailNullError);
@@ -142,13 +162,11 @@ class _LoginState extends State<Login> {
                   }
                   return null;
                 },
+
                 textInputAction: TextInputAction.next,
                 hintText: 'Email Address',
                 keyboardType: TextInputType.emailAddress,
                 controller: emailController,
-                autovalidateMode: submitted
-                    ? AutovalidateMode.onUserInteraction
-                    : AutovalidateMode.disabled,
                 suffixIcon: IconButton(
                   icon: const Icon(
                     Icons.email,
@@ -156,8 +174,9 @@ class _LoginState extends State<Login> {
                   ),
                   onPressed: () {},
                 )),
-            const TextInputSpace(),
+           const TextInputSpace(),
             CustomTextInput(
+              onSaved: (newValue) => password = newValue,
               onChanged: (value) {
                 if (value.isNotEmpty) {
                   removeError(error: kPassNullError);
@@ -167,9 +186,6 @@ class _LoginState extends State<Login> {
                   removeError(error: kPassNull2Error);
                 }
               },
-              autovalidateMode: submitted
-                  ? AutovalidateMode.onUserInteraction
-                  : AutovalidateMode.disabled,
               validator: (value) {
                 if (value!.isEmpty) {
                   addError(error: kPassNullError);
@@ -184,6 +200,7 @@ class _LoginState extends State<Login> {
                 return null;
               },
               enableSuggestions: false,
+       
               textInputAction: TextInputAction.done,
               expands: false,
               obscureText: isVisible ? false : true,
@@ -208,12 +225,7 @@ class _LoginState extends State<Login> {
             CustomButton(
               color: BookKeepingColors.mainColor,
               thickLine: 1,
-              onpressed: () {
-                setState(() => submitted = true);
-                if (_formKey.currentState!.validate()) {
-                  verify();
-                }
-              },
+              onpressed: signin,
               text: 'Login',
               textcolor: BookKeepingColors.backgroundColour,
             ),
@@ -221,7 +233,7 @@ class _LoginState extends State<Login> {
             OnClickToNewPage(
               text1: 'Don\'t have an account?',
               onTap: () {
-                pushTo(context, const SignUp());
+                pushTo(context, const BusinessRegistration());
               },
               text2: 'Sign Up',
             ),
@@ -231,3 +243,4 @@ class _LoginState extends State<Login> {
     );
   }
 }
+
