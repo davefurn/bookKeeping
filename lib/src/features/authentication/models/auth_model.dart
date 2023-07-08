@@ -12,23 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+class Token {
+  final String refreshToken;
+  final String accessToken;
 
+  const Token({required this.refreshToken, required this.accessToken});
 
-
+  static Token fromJson(Map<String, dynamic> data) {
+    return Token(
+      refreshToken: data['refresh'],
+      accessToken: data['access'],
+    );
+  }
+}
 
 class LoginData {
-  final String accessToken;
-  final String refreshToken;
+  final Token token;
+  final String email;
+  final String firstName;
+  final String walletBalance;
 
   LoginData( {
-    required this.accessToken,
-    required this.refreshToken,
+    required this.token,
+   required this.email, required this.firstName,required this.walletBalance,
   });
 
   static LoginData fromJson(Map<String, dynamic> data) {
     return LoginData(
-      refreshToken: data['refresh'],
-      accessToken: data['access'],
+      token: Token.fromJson(data['token']), 
+      email: data['email'],
+      firstName: data['name'],
+      walletBalance: data['wallet_balance']
     );
   }
 }

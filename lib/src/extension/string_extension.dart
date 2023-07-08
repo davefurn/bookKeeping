@@ -35,3 +35,5 @@ final RegExp phoneRegExp = RegExp(r'^\+?0[0-9]{10}$');
 const String kInvalidNameError = "Please enter valid name";
 const String kInvalidPhoneNumberError = "Please enter valid phone number";
 const String confirmPassowrd = "Password not similar";
+
+enum LoadingState { normal, loading }

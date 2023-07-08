@@ -22,12 +22,16 @@ class LocalStorage {
   LocalStorage._init();
 
   final String firstTime = 'firstTime';
-  // final String email = 'email';
-
-  // final String phone = 'phone';
+  final String email = 'email';
+  final String phone = 'phone';
+  final String password = 'password';
+  final String firstName = 'firstName';
+  final String lastName = 'lastName';
+  final String securityPin = 'pin';
   final String accesstoken = 'token';
   final String refreshtoken = 'rtoken';
-   final String loggedIn = 'loggedIn';
+  final String loggedIn = 'loggedIn';
+  final String walletBalance = '0.00';
 
   Future<SharedPreferences> get prefs async {
     if (_prefs != null) return _prefs!;
@@ -50,26 +54,77 @@ class LocalStorage {
     return true;
   }
 
-  // Future<bool> setEmail(String value) async {
-  //   var pref = await instance.prefs;
-  //   return pref.setString(email, value);
-  // }
+  Future<bool> setEmail(String value) async {
+    var pref = await instance.prefs;
+    return pref.setString(email, value);
+  }
 
-  // Future<String?> getEmail() async {
-  //   var pref = await instance.prefs;
-  //   return pref.getString(email);
-  // }
+  Future<bool> setPassword(String value) async {
+    var pref = await instance.prefs;
+    return pref.setString(password, value);
+  }
 
-  // Future<bool> setPhone(String value) async {
-  //   var pref = await instance.prefs;
-  //   return pref.setString(phone, value);
-  // }
+  Future<bool> setWalletBalance(String value) async {
+    var pref = await instance.prefs;
+    return pref.setString(walletBalance, value);
+  }
 
-  // Future<String?> getPhone() async {
-  //   var pref = await instance.prefs;
-  //   return pref.getString(phone);
-  // }
-   Future<bool> setLoggedIn(bool value) async {
+  Future<bool> setFirstName(String value) async {
+    var pref = await instance.prefs;
+    return pref.setString(firstName, value);
+  }
+
+  Future<bool> setLastName(String value) async {
+    var pref = await instance.prefs;
+    return pref.setString(lastName, value);
+  }
+
+  Future<bool> setPhoneNumber(String value) async {
+    var pref = await instance.prefs;
+    return pref.setString(phone, value);
+  }
+
+  Future<bool> setSecurityPin(String value) async {
+    var pref = await instance.prefs;
+    return pref.setString(securityPin, value);
+  }
+
+  Future<String?> getEmail() async {
+    var pref = await instance.prefs;
+    return pref.getString(email);
+  }
+
+  Future<String?> getWalletBalance() async {
+    var pref = await instance.prefs;
+    return pref.getString(walletBalance);
+  }
+
+  Future<String?> getPhone() async {
+    var pref = await instance.prefs;
+    return pref.getString(phone);
+  }
+
+  Future<String?> getPassword() async {
+    var pref = await instance.prefs;
+    return pref.getString(password);
+  }
+
+  Future<String?> getFirstName() async {
+    var pref = await instance.prefs;
+    return pref.getString(firstName);
+  }
+
+  Future<String?> getLastName() async {
+    var pref = await instance.prefs;
+    return pref.getString(lastName);
+  }
+
+  Future<String?> getSecurityPin() async {
+    var pref = await instance.prefs;
+    return pref.getString(securityPin);
+  }
+
+  Future<bool> setLoggedIn(bool value) async {
     var pref = await instance.prefs;
     return pref.setBool(loggedIn, value);
   }
@@ -101,19 +156,25 @@ class LocalStorage {
 
   Future<void> saveUserData(LoginData data) async {
     var pref = await instance.prefs;
-    await pref.setString(accesstoken, data.accessToken);
-    await pref.setString(refreshtoken, data.refreshToken);
+    await pref.setString(accesstoken, data.token.accessToken);
+    await pref.setString(refreshtoken, data.token.refreshToken);
+    await pref.setString(firstName, data.firstName);
+    await pref.setString(email, data.email);
+    await pref.setString(walletBalance, data.walletBalance);
   }
 
   Future<LoginData> getUserData() async {
     var pref = await instance.prefs;
 
-    var accesstoken_ = pref.getString(accesstoken)!;
-    var refreshtoken_ = pref.getString(refreshtoken)!;
+    var firstName_ = pref.getString(firstName)!;
+    var email_ = pref.getString(email)!;
+    var walletBalance_ = pref.getString(walletBalance)!;
+    var token_ = Token(refreshToken: refreshtoken, accessToken: accesstoken);
 
     return LoginData(
-      accessToken: accesstoken_,
-      refreshToken: refreshtoken_,
-    );
+        email: email_,
+        firstName: firstName_,
+        walletBalance: walletBalance_,
+        token: token_);
   }
 }

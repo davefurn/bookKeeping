@@ -12,8 +12,18 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-class AppEndpoints {
-  static const String baseUrl = 'https://bookkeepingapi.up.railway.app';
-  static const String login = '/auth/jwt/create';
-  static const String createUser = '/customer/';
+class UserModel {
+   String? email;
+   String? phone;
+   String? firstName;
+   String? lastName;
+   String? password;
+
+  UserModel({
+    this.email = '',
+    this.phone = '',
+    this.firstName = '',
+    this.lastName = '',
+    this.password = '',
+  });
 }

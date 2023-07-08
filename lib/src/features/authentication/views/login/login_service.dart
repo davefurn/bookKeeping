@@ -18,14 +18,14 @@ import 'package:bookkeep_app/src/features/authentication/views/login/widgets/cus
 import 'package:bookkeep_app/src/features/authentication/views/login/widgets/custom_text_input.dart';
 import 'package:bookkeep_app/src/features/authentication/views/login/widgets/smal_text_under_button.dart';
 import 'package:bookkeep_app/src/features/authentication/views/login/widgets/title.dart';
-
+import 'package:bookkeep_app/src/features/home/views/home.dart';
 import 'package:bookkeep_app/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import '../../../../dialogs/dialogs.dart';
 import '../../../../extension/string_extension.dart';
 import '../../../../extension/size_config.dart';
 import '../../../../widgets/space_btwn_text_input.dart';
-import '../../../home/views/home.dart';
+
 
 class LoginService extends StatefulWidget {
   const LoginService({super.key});
@@ -74,7 +74,7 @@ class _LoginServiceState extends State<LoginService> {
       // and use it to show a SnackBar.
       ScaffoldMessenger.of(context).showSnackBar(snackBar);
       Future.delayed(const Duration(seconds: 1), () {
-        CustomRoutes.fadeIn(const Home());
+        CustomRoutes.fadeIn(const HomeScreen());
       });
     } 
   }
@@ -114,8 +114,7 @@ class _LoginServiceState extends State<LoginService> {
             Padding(
               padding: EdgeInsets.only(
                 top: getProportionateScreenHeight(58.25),
-                left: getProportionateScreenWidth(20),
-              ),
+                ),
               child: backButton(context),
             ),
             TitleWidget(

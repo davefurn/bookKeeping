@@ -11,20 +11,28 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-
-class TextInputSpace extends StatelessWidget {
-  const TextInputSpace({
-    Key? key,
-  }) : super(key: key);
+import '../../../constants/colors.dart';
+class More extends StatelessWidget {
+  const More({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 24.h,
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: BookKeepingColors.secondaryColor,
+        title: Text(
+          'More',
+          style: TextStyle(
+            fontSize: 24.sp,
+            fontWeight: FontWeight.w600,
+            color: BookKeepingColors.backgroundColour,
+          ),
+        ),
+        
+      ),
     );
   }
 }

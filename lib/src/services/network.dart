@@ -17,7 +17,7 @@ class NetworkService {
         data: data,
         options: options,
       );
-      print('AppEndpoints.baseUrl}$path');
+   
       log(a.data.toString());
       return a;
     } on DioError catch (e) {

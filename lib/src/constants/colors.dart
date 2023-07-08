@@ -15,10 +15,14 @@
 import 'package:flutter/material.dart';
 
 class BookKeepingColors {
-  static const backgroundColour = Colors.white;
+  static const backgroundColour = Color(0xffffffff);
   static const onboardingWhiteColour = Color(0xffFBFBFB);
   static const mainColor = Color(0xff004346);
   static const secondaryColor = Color(0xff050919);
   static const failureColor = Color(0xffDD3333);
   static const subColor = Color(0xffF2F8FD);
+  static const tabColor = Color(0xffE2E4EB);
+  static const tabWhite = Color(0xffFAFAFB);
+  static const green = Color(0xff0AB553);
+  static const dividerColor = Color(0xffE6E8F2);
 }
