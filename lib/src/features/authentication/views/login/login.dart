@@ -1,32 +1,4 @@
-// Copyright 2023 Davefurn
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
-import 'package:bookkeep_app/src/constants/colors.dart';
-import 'package:bookkeep_app/src/extension/string_extension.dart';
-
-import 'package:bookkeep_app/src/features/authentication/views/login/widgets/custom_text_input.dart';
-import 'package:bookkeep_app/src/features/authentication/views/login/widgets/smal_text_under_button.dart';
-import 'package:bookkeep_app/src/features/authentication/views/login/widgets/title.dart';
-import 'package:bookkeep_app/src/features/authentication/views/signUp/sign_up.dart';
-import 'package:bookkeep_app/src/features/authentication/views/signUp/widgets/loading_button.dart';
-import 'package:bookkeep_app/src/features/marketplace/views/marketplace.dart';
-import 'package:bookkeep_app/src/router/app_routes.dart';
-import 'package:flutter/material.dart';
-
-import '../../../../extension/size_config.dart';
-import '../../../../services/post_requests.dart';
-import '../../../../widgets/space_btwn_text_input.dart';
+import 'package:bookkeep_app/src/features/authentication/views/login/imports.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -56,13 +28,12 @@ class _LoginState extends State<Login> {
     setState(() {
       state = LoadingState.loading;
     });
-    // await PostRequest.fetchBearerToken(
-    //   context,
-    //   login: true,
-    //   email: emailController.text,
-    //   password: passwordController.text,
-    // );
-    pushTo(context,const MarketPlace());
+    await PostRequest.fetchBearerToken(
+      context,
+      login: true,
+      email: emailController.text,
+      password: passwordController.text,
+    );
     setState(() {
       state = LoadingState.normal;
     });
@@ -75,22 +46,7 @@ class _LoginState extends State<Login> {
     super.dispose();
   }
 
-  void addError({String? error}) {
-    if (!errors.contains(error)) {
-      setState(() {
-        errors.add(error);
-      });
-    }
-  }
-
-  void removeError({String? error}) {
-    if (errors.contains(error)) {
-      setState(() {
-        errors.remove(error);
-      });
-    }
-  }
-
+ 
   @override
   Widget build(BuildContext context) {
     SizeConfig().init(context);
@@ -103,37 +59,41 @@ class _LoginState extends State<Login> {
             children: [
               Padding(
                 padding: EdgeInsets.only(
-                  top: getProportionateScreenHeight(58.25),
-                  left: getProportionateScreenWidth(20),
+                  top: 58.25.h,
+                  left: 20.w,
                 ),
                 child: backButton(context),
               ),
+              Center(
+                child: Image.asset(
+                  'assets/images/onboarding_icon.png',
+                  width:132.w,
+                  height: 101.52.h,
+                  fit: BoxFit.cover,
+                ),
+              ),
               TitleWidget(
                 text: 'Log In',
-                pDtop: getProportionateScreenHeight(157.25),
-                pDleft: getProportionateScreenWidth(20),
-                fontSize: 32,
+                pDtop: 55.48.h,
+                pDleft: 20.w,
+                fontSize: 32.r,
               ),
-              SizedBox(
-                height: getProportionateScreenHeight(8),
-              ),
+              8.sbH,
               Padding(
                 padding: EdgeInsets.only(
-                  left: getProportionateScreenWidth(20),
+                  left: 20.w,
                 ),
                 child: Align(
                   alignment: Alignment.topLeft,
                   child: Text(
                     "Kindly enter login details to get access to account",
                     style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                          fontSize: 16,
+                          fontSize: 16.r,
                         ),
                   ),
                 ),
               ),
-              SizedBox(
-                height: getProportionateScreenHeight(87),
-              ),
+              87.sbH,
               CustomTextInput(
                   validator: (String? value) {
                     if ((value == null || value.isEmpty) ||
@@ -191,9 +151,19 @@ class _LoginState extends State<Login> {
                   },
                 ),
               ),
-              SizedBox(
-                height: getProportionateScreenHeight(148),
+                32.sbH,
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: Align(
+                  alignment: Alignment.topRight,
+                  child: Text("Forgot Password",
+                      style: TextStyle(
+                          fontSize: 16.sp,
+                          fontWeight: FontWeight.w500,
+                          color: BookKeepingColors.mainColor)),
+                ),
               ),
+              90.sbH,
               LoadingButton(
                   state: state,
                   onTap: () {
@@ -203,7 +173,7 @@ class _LoginState extends State<Login> {
                     }
                   },
                   text: 'Login'),
-              SizedBox(height: getProportionateScreenHeight(42)),
+             42.sbH,
               OnClickToNewPage(
                 text1: 'Don\'t have an account?',
                 onTap: () {

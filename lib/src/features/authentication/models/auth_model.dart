@@ -31,18 +31,25 @@ class LoginData {
   final String email;
   final String firstName;
   final String walletBalance;
+  final bool isCustomer;
+  final bool isServiceProvider;
 
-  LoginData( {
+  LoginData({
+    required this.isCustomer,
+    required this.isServiceProvider,
     required this.token,
-   required this.email, required this.firstName,required this.walletBalance,
+    required this.email,
+    required this.firstName,
+    required this.walletBalance,
   });
 
   static LoginData fromJson(Map<String, dynamic> data) {
     return LoginData(
-      token: Token.fromJson(data['token']), 
-      email: data['email'],
-      firstName: data['name'],
-      walletBalance: data['wallet_balance']
-    );
+        isCustomer: data['is_customer'],
+        isServiceProvider: data['is_service_provider'],
+        token: Token.fromJson(data['token']),
+        email: data['email'],
+        firstName: data['name'],
+        walletBalance: data['wallet_balance']);
   }
 }

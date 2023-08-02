@@ -13,7 +13,9 @@
 // limitations under the License.
 import 'package:bookkeep_app/src/constants/colors.dart';
 import 'package:bookkeep_app/src/extension/box_exten.dart';
-import 'package:bookkeep_app/src/features/marketplace/views/accounting_view.dart';
+import 'package:bookkeep_app/src/features/marketplace/accounting/views/accounting_view.dart';
+import 'package:bookkeep_app/src/features/marketplace/data/view/data.dart';
+import 'package:bookkeep_app/src/features/marketplace/law/view/law.dart';
 import 'package:bookkeep_app/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -73,12 +75,16 @@ class _MarketPlaceState extends State<MarketPlace> {
                   ),
                   GridViewP(
                     icon: Icons.balance_outlined,
-                    onpressed: () {},
+                    onpressed: () {
+                        pushTo(context, const LawView());
+                    },
                     text: "Law",
                   ),
                   GridViewP(
                     icon: Icons.data_exploration,
-                    onpressed: () {},
+                    onpressed: () {
+                       pushTo(context, const DataView());
+                    },
                     text: "Data",
                   ),
                 ],

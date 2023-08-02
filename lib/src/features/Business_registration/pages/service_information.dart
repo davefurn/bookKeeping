@@ -1,190 +1,377 @@
-// Copyright 2023 Davefurn
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-//     http://www.apache.org/licenses/LICENSE-2.0
-// 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+import 'package:bookkeep_app/src/features/Business_registration/model/business_reg_model.dart';
+import 'package:bookkeep_app/src/features/authentication/views/login/imports.dart';
+import 'package:bookkeep_app/src/features/marketplace/accounting/model/models.dart';
+import 'package:bookkeep_app/src/features/marketplace/widget/app_error_widget.dart';
+import 'package:bookkeep_app/src/features/marketplace/widget/special_button_2.dart';
+import 'package:bookkeep_app/src/riverpod/providers.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'package:flutter/material.dart';
-
-import '../../../constants/colors.dart';
-import '../../../extension/size_config.dart';
-import '../../../widgets/space_btwn_text_input.dart';
-import '../../authentication/views/login/widgets/custom_button.dart';
-import '../../authentication/views/login/widgets/custom_text_input.dart';
-import '../../authentication/views/signUp/widgets/scroll_function.dart';
-import '../../authentication/views/signUp/widgets/topic_scroll.dart';
-class ServiceInformationPage extends StatelessWidget {
+class ServiceInformationPage extends ConsumerStatefulWidget {
   const ServiceInformationPage({
+    required this.businessModel,
     Key? key,
-    required this.formKey1,
     required this.controller,
   }) : super(key: key);
 
-  final GlobalKey<FormState> formKey1;
   final PageController controller;
+  final BusinessModel businessModel;
+
+  @override
+  ConsumerState<ServiceInformationPage> createState() =>
+      _ServiceInformationPageState();
+}
+
+class _ServiceInformationPageState
+    extends ConsumerState<ServiceInformationPage> {
+  final formKey1 = GlobalKey<FormState>();
+  late TextEditingController? serviceNameController;
+  late TextEditingController? servicePhoneNumber;
+  late TextEditingController? serviceEmail;
+  late TextEditingController? serviceIndustry;
+  late TextEditingController? serviceDescription;
+  bool submitted1 = false;
+  var state = LoadingState.normal;
+  List<AllAcountingIndustriesModel>? value;
+
+  @override
+  void initState() {
+    serviceNameController = TextEditingController();
+    servicePhoneNumber = TextEditingController();
+    serviceEmail = TextEditingController();
+    serviceIndustry = TextEditingController();
+    serviceDescription = TextEditingController();
+
+    super.initState();
+  }
+
+  Future<void> createUserProcess1() async {
+    setState(() {
+      state = LoadingState.loading;
+    });
+    await PostRequest.createServiceProvider1(
+      context,
+      controller: widget.controller,
+      email: serviceEmail!.text.trim(),
+      industry: selectedValue,
+      phoneNumber: servicePhoneNumber!.text.trim(),
+      serviceName: serviceNameController!.text.trim(),
+      serviceDescription: serviceDescription!.text.trim(),
+    );
+
+    widget.businessModel.email = serviceEmail!.text.trim();
+    widget.businessModel.phone = servicePhoneNumber!.text.trim();
+    widget.businessModel.industryId = selectedValue;
+    widget.businessModel.serviceName = serviceNameController!.text.trim();
+    widget.businessModel.serviceDescription = serviceDescription!.text.trim();
+
+    setState(() {
+      state = LoadingState.normal;
+    });
+  }
+
+  String? selectedValue;
+  Widget? loadingWidget() {
+    return SizedBox(
+      height: 750.h,
+      child: const Center(
+          child: CircularProgressIndicator.adaptive(
+        backgroundColor: BookKeepingColors.backgroundColour,
+      )),
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      child: Form(
-        key: formKey1,
-        child: Column(
-          children: [
-            SizedBox(
-              height: getProportionateScreenHeight(25),
-            ),
-            const ScrollFunction(),
-            SizedBox(
-              height: getProportionateScreenHeight(32),
-            ),
-            const TopicScroll(
-              text: "Service Information",
-            ),
-            const TextInputSpace(),
-            const CustomTextInput(
-              hintText: 'Service Name',
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(8),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                right: getProportionateScreenWidth(59),
-                left: getProportionateScreenWidth(20),
-              ),
-              child: Text(
-                "Service Name should be service provided which can be job title e.g Software Engineer",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(
-                      fontSize: 14,
-                    ),
-              ),
-            ),
-            const TextInputSpace(),
-            const CustomTextInput(
-              hintText: 'Service Phone Number',
-            ),
-            const TextInputSpace(),
-            const CustomTextInput(
-              hintText: 'Service Email Address',
-            ),
-            const TextInputSpace(),
-            CustomTextInput(
-              hintText: 'Industry',
-              suffixIcon: IconButton(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.arrow_forward_ios,
-                    size: 18,
-                    color: BookKeepingColors.secondaryColor,
-                  )),
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(8),
-            ),
-            Padding(
-              padding: EdgeInsets.only(
-                right: getProportionateScreenWidth(68),
-                left: getProportionateScreenWidth(20),
-              ),
-              child: Text(
-                "Choose industry closer or relates to the service you provide",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(
-                      fontSize: 14,
-                    ),
-              ),
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(20),
-            ),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                  horizontal: getProportionateScreenWidth(20)),
-              child: const Divider(
-                color: Color(0xffEAECF4),
-                thickness: 2,
-              ),
-            ),
-            SizedBox(
-              height: getProportionateScreenHeight(20),
-            ),
-            Align(
-              alignment: Alignment.topLeft,
-              child: Padding(
-                padding:  EdgeInsets.only(
-                    left:
-                        getProportionateScreenWidth(20)),
-                child: Text(
-                  'Short Service Description',
-                  style: Theme.of(context)
-                      .textTheme
-                      .labelMedium!
-                      .copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18),
-                ),
-              ),
-            ),
-             SizedBox(
-              height: getProportionateScreenHeight(5),
-            ),
-             Padding(
-              padding: EdgeInsets.only(
-                right: getProportionateScreenWidth(68),
-                left: getProportionateScreenWidth(20),
-              ),
-              child: Text(
-                "Choose industry closer or relates to the service you provide",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(
-                      fontSize: 14,
-                    ),
-              ),
-            ),
-              SizedBox(
-              height: getProportionateScreenHeight(16),
-            ),
-           const  CustomTextInput(
-              hintText: 'Kindly enter description',
-            ),
-             SizedBox(
-              height: getProportionateScreenHeight(12),
-            ),
-            CustomButton(
-              color: BookKeepingColors.mainColor,
-              thickLine: 1,
-              onpressed: () async {
-                if (formKey1.currentState!.validate()) {
-                  formKey1.currentState!.save();
+    var allAccountingIndustries = ref.watch(allAccountingIndustriesProvider);
 
-                  controller.nextPage(
-                      duration: const Duration(
-                        milliseconds: 250,
-                      ),
-                      curve: Curves.easeInOut);
-                }
-              },
-              text: 'Next',
-              textcolor: BookKeepingColors.backgroundColour,
-            ),
-          ],
-        ),
-      ),
-    );
+    return SingleChildScrollView(
+        child: allAccountingIndustries.when(
+      data: (data) {
+        if (data?.statusCode == 200 && data != null) {
+          value = (data.data as List)
+              .map((e) => AllAcountingIndustriesModel.fromJson(e))
+              .toList();
+          return value!.isNotEmpty
+              ? SizedBox(
+                  child: Form(
+                    key: formKey1,
+                    child: Column(
+                      children: [
+                        25.sbH,
+                        const ScrollFunction(),
+                        32.sbH,
+                        const TopicScroll(
+                          text: "Service Information",
+                        ),
+                        const TextInputSpace(),
+                        CustomTextInput(
+                            hintText: 'Service Name',
+                            controller: serviceNameController,
+                            autovalidateMode: submitted1
+                                ? AutovalidateMode.onUserInteraction
+                                : AutovalidateMode.disabled,
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return "Please enter your service name";
+                              }
+                              return null;
+                            },
+                            textInputAction: TextInputAction.next,
+                            keyboardType: TextInputType.name),
+                        8.sbH,
+                        Padding(
+                          padding: EdgeInsets.only(
+                            right: 59.h,
+                            left: 20.w,
+                          ),
+                          child: Text(
+                            "Service Name should be service provided which can be job title e.g Software Engineer",
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 14.sp,
+                                    ),
+                          ),
+                        ),
+                        const TextInputSpace(),
+                        CustomTextInput(
+                          hintText: 'Service Phone Number',
+                          controller: servicePhoneNumber,
+                          autovalidateMode: submitted1
+                              ? AutovalidateMode.onUserInteraction
+                              : AutovalidateMode.disabled,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Please enter your phone Number";
+                            } else if (!phoneRegExp.hasMatch(value)) {
+                              return "Please enter valid phone number";
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.phone,
+                        ),
+                        const TextInputSpace(),
+                        CustomTextInput(
+                          hintText: 'Service Email Address',
+                          controller: serviceEmail,
+                          autovalidateMode: submitted1
+                              ? AutovalidateMode.onUserInteraction
+                              : AutovalidateMode.disabled,
+                          validator: (value) {
+                            if (value!.isEmpty) {
+                              return "Please Enter your email";
+                            } else if (!emailValidatorRegExp.hasMatch(value)) {
+                              return "Please Enter Valid Email";
+                            }
+                            return null;
+                          },
+                          keyboardType: TextInputType.emailAddress,
+                          textInputAction: TextInputAction.next,
+                        ),
+                        const TextInputSpace(),
+                        Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
+                            child: DropdownButtonFormField2<String>(
+                              value: selectedValue,
+                              isExpanded: true,
+                              decoration: InputDecoration(
+                                // Add Horizontal padding using menuItemStyleData.padding so it matches
+                                // the menu padding when button's width is not specified.
+                                contentPadding:
+                                    const EdgeInsets.symmetric(vertical: 16),
+                                border: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4.r),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffEAECF4), width: 2),
+                                ),
+                                enabledBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffEAECF4), width: 2),
+                                ),
+                                focusedBorder: OutlineInputBorder(
+                                  borderRadius: BorderRadius.circular(4),
+                                  borderSide: const BorderSide(
+                                      color: BookKeepingColors.mainColor,
+                                      width: 2),
+                                ),
+                                // Add more decoration..
+                              ),
+                              hint: Text(
+                                'Industry',
+                                style: TextStyle(
+                                  fontSize: 16.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: const Color(0xffAEB0B9),
+                                ),
+                              ),
+                              items: value!.map((item) {
+                                return DropdownMenuItem<String>(
+                                  value: item.id.toString(),
+                                  child: Text(
+                                    item.name.toString(),
+                                    style: TextStyle(
+                                        fontSize: 16.sp,
+                                        fontWeight: FontWeight.w400),
+                                  ),
+                                );
+                              }).toList(),
+                              validator: (value) {
+                                if (value == null) {
+                                  return 'Choose an industry.';
+                                }
+                                return null;
+                              },
+                              onChanged: (value) {
+                                selectedValue = value.toString();
+
+                                //Do something when selected item is changed.
+                              },
+                              onSaved: (value) {
+                                selectedValue = value.toString();
+                              },
+                              buttonStyleData: const ButtonStyleData(
+                                padding: EdgeInsets.only(right: 8),
+                              ),
+                              iconStyleData: const IconStyleData(
+                                icon: Icon(
+                                  Icons.arrow_drop_down,
+                                  color: Colors.black45,
+                                ),
+                                iconSize: 24,
+                              ),
+                              dropdownStyleData: DropdownStyleData(
+                                decoration: BoxDecoration(
+                                  color: BookKeepingColors.backgroundColour,
+                                  border: Border.all(
+                                      color: BookKeepingColors.mainColor),
+                                  borderRadius: BorderRadius.circular(4.r),
+                                ),
+                              ),
+                              menuItemStyleData: const MenuItemStyleData(
+                                padding: EdgeInsets.symmetric(horizontal: 16),
+                              ),
+                            )),
+                        8.sbH,
+                        Padding(
+                          padding: EdgeInsets.only(
+                            right: 68.w,
+                            left: 20.w,
+                          ),
+                          child: Text(
+                            "Choose industry closer or relates to the service you provide",
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 14.sp,
+                                    ),
+                          ),
+                        ),
+                        20.sbH,
+                        Padding(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: 20.h,
+                          ),
+                          child: const Divider(
+                            color: Color(0xffEAECF4),
+                            thickness: 2,
+                          ),
+                        ),
+                        20.sbH,
+                        Align(
+                          alignment: Alignment.topLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 20.h),
+                            child: Text(
+                              'Short Service Description',
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .labelMedium!
+                                  .copyWith(
+                                      fontWeight: FontWeight.w600,
+                                      fontSize: 18.sp),
+                            ),
+                          ),
+                        ),
+                        5.sbH,
+                        Padding(
+                          padding: EdgeInsets.only(
+                            right: 68.w,
+                            left: 20.w,
+                          ),
+                          child: Text(
+                            "Choose industry closer or relates to the service you provide",
+                            style:
+                                Theme.of(context).textTheme.bodySmall!.copyWith(
+                                      fontSize: 14.sp,
+                                    ),
+                          ),
+                        ),
+                        16.sbH,
+                        CustomTextInput(
+                          controller: serviceDescription,
+                          hintText: 'Kindly enter description',
+                        ),
+                        12.sbH,
+                        LoadingButton(
+                            state: state,
+                            onTap: () {
+                              setState(() => submitted1 = true);
+                              if (formKey1.currentState!.validate()) {
+                                createUserProcess1();
+                              }
+                            },
+                            text: 'Next'),
+                        20.sbH,
+                      ],
+                    ),
+                  ),
+                )
+              : SizedBox(
+                  height: 600.h,
+                  child: Center(
+                      child: AppErrorWidget(
+                    retry: SpecialButton2(
+                        text:
+                            'Couldn\'t fetch industries, check internet then Retry?',
+                        onTap: () {
+                          loadingWidget();
+                          ref.invalidate(allAccountingIndustriesProvider);
+                          allAccountingIndustries =
+                              ref.read(allAccountingIndustriesProvider);
+                        }),
+                  )),
+                );
+        } else {
+          return SizedBox(
+            height: 600.h,
+            child: Center(
+                child: AppErrorWidget(
+              retry: SpecialButton2(
+                  backgroundColor: BookKeepingColors.mainColor,
+                  borderColor: BookKeepingColors.mainColor,
+                  textColor: BookKeepingColors.backgroundColour,
+                  text: 'Check internet, Retry?',
+                  onTap: () {
+                    loadingWidget();
+                    ref.invalidate(allAccountingIndustriesProvider);
+                    allAccountingIndustries =
+                        ref.read(allAccountingIndustriesProvider);
+                  }),
+            )),
+          );
+        }
+      },
+      error: (Object error, StackTrace stackTrace) => Center(
+          child: AppErrorWidget(
+        retry: SpecialButton2(
+            text: 'Couldn\'t fetch industries, retry?',
+            onTap: () {
+              ref.invalidate(allAccountingIndustriesProvider);
+              allAccountingIndustries =
+                  ref.read(allAccountingIndustriesProvider);
+            }),
+      )),
+      loading: loadingWidget,
+    ));
   }
 }

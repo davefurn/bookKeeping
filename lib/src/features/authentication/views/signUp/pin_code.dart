@@ -1,37 +1,5 @@
-// Copyright 2023 Davefurn
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
+import 'package:bookkeep_app/src/features/authentication/views/login/imports.dart';
 
-import 'dart:async';
-
-import 'package:bookkeep_app/src/extension/string_extension.dart';
-import 'package:bookkeep_app/src/features/authentication/models/user_data.dart';
-import 'package:bookkeep_app/src/features/authentication/views/signUp/widgets/loading_button.dart';
-import 'package:bookkeep_app/src/services/post_requests.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
-import 'package:bookkeep_app/src/extension/size_config.dart';
-
-import 'package:bookkeep_app/src/features/authentication/views/signUp/widgets/scroll_function.dart';
-import 'package:bookkeep_app/src/features/authentication/views/signUp/widgets/topic_scroll.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:pin_code_fields/pin_code_fields.dart';
-
-import '../../../../constants/colors.dart';
-import '../../../../router/app_routes.dart';
-import '../login/login.dart';
-
-import '../login/widgets/smal_text_under_button.dart';
 
 class PinCode extends StatefulWidget {
   final UserModel usermodel;

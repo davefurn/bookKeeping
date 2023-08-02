@@ -1,24 +1,5 @@
-// Copyright 2023 Davefurn
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-import 'package:bookkeep_app/src/constants/colors.dart';
-import 'package:bookkeep_app/src/extension/size_config.dart';
-import 'package:bookkeep_app/src/features/authentication/views/login/login_service.dart';
-import 'package:bookkeep_app/src/features/authentication/views/login/widgets/custom_button.dart';
-import 'package:bookkeep_app/src/router/app_routes.dart';
-import 'package:flutter/material.dart';
+import 'package:bookkeep_app/src/features/authentication/views/login/imports.dart';
 
-import '../login/login.dart';
 
 class Auth extends StatelessWidget {
   const Auth({Key? key}) : super(key: key);
@@ -31,7 +12,7 @@ class Auth extends StatelessWidget {
       body: Column(
         children: [
           Container(
-            height: getProportionateScreenHeight(361),
+            height:361.h,
             width: double.maxFinite,
             decoration: const BoxDecoration(
                 image: DecorationImage(
@@ -40,33 +21,31 @@ class Auth extends StatelessWidget {
             )),
           ),
           Container(
-            height: getProportionateScreenHeight(571),
+            height: 571.h,
             width: double.maxFinite,
-            decoration: const BoxDecoration(
+            decoration:  BoxDecoration(
               color: BookKeepingColors.onboardingWhiteColour,
               borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(8),
-                topRight: Radius.circular(8),
+                topLeft: Radius.circular(8.r),
+                topRight: Radius.circular(8.r),
               ),
             ),
             child: Column(
               children: [
                 Padding(
                   padding: EdgeInsets.only(
-                    left: getProportionateScreenWidth(148),
-                    right: getProportionateScreenWidth(149),
-                    top: getProportionateScreenHeight(41),
+                    left: 148.w,
+                    right: 149.w,
+                    top: 41.h,
                   ),
                   child: Image.asset(
                     'assets/images/onboarding_icon.png',
-                    width: getProportionateScreenWidth(132),
-                    height: getProportionateScreenHeight(101.52),
+                    width: 132.w,
+                    height: 101.52.h,
                     fit: BoxFit.cover,
                   ),
                 ),
-                SizedBox(
-                  height: getProportionateScreenHeight(198.48),
-                ),
+                198.48.sbH,
                 CustomButton(
                   text: 'Continue as Service Provider',
                   onpressed: () {
@@ -75,9 +54,7 @@ class Auth extends StatelessWidget {
                   thickLine: 1,
                   textcolor: BookKeepingColors.backgroundColour,
                 ),
-                SizedBox(
-                  height: getProportionateScreenHeight(26),
-                ),
+               26.sbH,
                 CustomButton(
                   text: 'Continue as a user',
                   onpressed: () {

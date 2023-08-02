@@ -51,7 +51,7 @@ class Cards extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           Expanded(
-            flex: 3,
+            flex: 5,
             child: ClipRRect(
               borderRadius: BorderRadius.circular(6.r),
               child: Hero(
@@ -67,8 +67,9 @@ class Cards extends StatelessWidget {
           ),
           14.sbW,
           Expanded(
-            flex: 6,
+            flex: 7,
             child: Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Expanded(
                   child: Row(

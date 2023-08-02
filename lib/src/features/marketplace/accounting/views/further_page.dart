@@ -15,20 +15,29 @@
 import 'package:bookkeep_app/src/constants/colors.dart';
 import 'package:bookkeep_app/src/extension/box_exten.dart';
 import 'package:bookkeep_app/src/features/authentication/views/login/widgets/custom_button.dart';
+import 'package:bookkeep_app/src/features/marketplace/accounting/model/tax_filing_models.dart';
+import 'package:bookkeep_app/src/features/marketplace/accounting/views/orders.dart';
 import 'package:bookkeep_app/src/features/marketplace/widget/card.dart';
 import 'package:bookkeep_app/src/features/marketplace/widget/expandable_text.dart';
 import 'package:bookkeep_app/src/features/marketplace/widget/specialbutton.dart';
 import 'package:bookkeep_app/src/features/marketplace/widget/sub_text.dart';
 import 'package:bookkeep_app/src/features/marketplace/widget/text_in_descrip.dart';
+import 'package:bookkeep_app/src/router/app_routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../widget/review_card.dart';
+import '../../widget/icon_text.dart';
+import '../../widget/review_card.dart';
 
 class FurtherPage extends StatefulWidget {
+  final TaxFilingModel taxFilingModel;
   final int index;
-  const FurtherPage({super.key, required this.index});
+  const FurtherPage({
+    super.key,
+    required this.index,
+    required this.taxFilingModel,
+  });
 
   @override
   State<FurtherPage> createState() => _FurtherPageState();
@@ -44,7 +53,6 @@ class _FurtherPageState extends State<FurtherPage> {
       builder: (_) {
         return Container(
           height: 545.h,
-          width: double.maxFinite,
           padding: EdgeInsets.symmetric(horizontal: 20.w),
           decoration: const BoxDecoration(
             color: BookKeepingColors.backgroundColour,
@@ -90,7 +98,7 @@ class _FurtherPageState extends State<FurtherPage> {
               ),
               8.sbH,
               Text(
-                'Lorem ipsum dolor sit amet consectetur. Blandit lectus cursus maecenas orci ultricies egestas nisi quisque interdum. Condimentum auctor facilisis gravida sit tincidunt nibh id interdum.',
+                widget.taxFilingModel.serviceName,
                 style: TextStyle(
                   fontSize: 14.sp,
                   fontWeight: FontWeight.w400,
@@ -98,9 +106,9 @@ class _FurtherPageState extends State<FurtherPage> {
                 ),
               ),
               26.sbH,
-              const IconAndText(
+               IconAndText(
                 icon: Icons.location_pin,
-                bottomString: 'Lagos, Nigeria',
+                bottomString: '${widget.taxFilingModel.city}, ${widget.taxFilingModel.country}',
                 topString: 'Location',
               ),
               19.sbH,
@@ -127,6 +135,7 @@ class _FurtherPageState extends State<FurtherPage> {
                 bottomString: 'Average Response Time',
                 topString: '2 hours',
               ),
+              19.sbH,
             ],
           ),
         );
@@ -160,7 +169,7 @@ class _FurtherPageState extends State<FurtherPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    'Augusta William',
+                    widget.taxFilingModel.serviceName,
                     style: TextStyle(
                       fontSize: 20.sp,
                       fontWeight: FontWeight.w600,
@@ -184,10 +193,10 @@ class _FurtherPageState extends State<FurtherPage> {
                 left: 20.w,
                 right: 20.w,
               ),
-              child: const Align(
+              child:  Align(
                   alignment: Alignment.topLeft,
                   child: ExpandableText(
-                    'Lorem ipsum dolor sit amet consectetur. Blandit lectus cursus maecenas orci ultricies egestas nisi quisque interdum. When a row is in a parent that does not provide a finite width constraint, for example if it is in a horizontal scrollable, it will try to shrink-wrap its children along the horizontal axis. Setting flex on a child (e.g. using Expanded) indicates that the child is to expand to fill the remainingspace in the horizontal direction..',
+                    widget.taxFilingModel.serviceDescription,
                     trimLines: 3,
                   )),
             ),
@@ -262,7 +271,7 @@ class _FurtherPageState extends State<FurtherPage> {
                     Align(
                       alignment: Alignment.topLeft,
                       child: Text(
-                        'Lorem ipsum dolor sit amet consectetur. Blandit lectus cursus maecenas orci ultricies egestas nisi quisque interdum. Condimentum auctor facilisis gravida sit tincidunt nibh id interdum.',
+                        widget.taxFilingModel.serviceDescription,
                         style: TextStyle(
                           fontSize: 14.sp,
                           fontWeight: FontWeight.w400,
@@ -327,7 +336,7 @@ class _FurtherPageState extends State<FurtherPage> {
             CustomButton(
               text: 'Proceed',
               onpressed: () {
-              
+                pushTo(context, const OrdersMarket());
               },
               thickLine: 1,
             ),
@@ -453,56 +462,6 @@ class _FurtherPageState extends State<FurtherPage> {
           ],
         ),
       ),
-    );
-  }
-}
-
-class IconAndText extends StatelessWidget {
-  final IconData icon;
-  final String topString;
-  final String bottomString;
-  const IconAndText({
-    super.key,
-    required this.icon,
-    required this.topString,
-    required this.bottomString,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
-      children: [
-        Expanded(
-          flex: 1,
-          child: Icon(
-            icon,
-            size: 20.sp,
-            color: BookKeepingColors.mainColor,
-          ),
-        ),
-        Expanded(
-          flex: 8,
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                topString,
-                style: TextStyle(
-                  fontSize: 12.sp,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-              Text(bottomString,
-                  style: TextStyle(
-                    fontSize: 14.sp,
-                    fontWeight: FontWeight.w500,
-                  ))
-            ],
-          ),
-        )
-      ],
     );
   }
 }

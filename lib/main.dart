@@ -52,13 +52,12 @@ class _MyAppState extends State<MyApp> {
         }
       },
       child: ScreenUtilInit(
-          designSize: const Size(429, 730),
+          designSize: const Size(430, 932),
           builder: (context, _) {
             return MaterialApp(
               restorationScopeId: 'app',
               title: 'Kuro Bookkeeping',
               debugShowCheckedModeBanner: false,
-              darkTheme: BookKeepTheme.darkTheme,
               themeMode: ThemeMode.light,
               theme: BookKeepTheme.lightTheme,
               home: const Auth(),

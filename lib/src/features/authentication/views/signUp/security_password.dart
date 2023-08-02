@@ -13,21 +13,8 @@
 // limitations under the License.
 
 
-import 'package:bookkeep_app/src/extension/string_extension.dart';
-import 'package:bookkeep_app/src/features/authentication/models/user_data.dart';
+import 'package:bookkeep_app/src/features/authentication/views/login/imports.dart';
 
-import 'package:bookkeep_app/src/features/authentication/views/signUp/widgets/scroll_function.dart';
-import 'package:bookkeep_app/src/features/authentication/views/signUp/widgets/topic_scroll.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../constants/colors.dart';
-import '../../../../router/app_routes.dart';
-import '../../../../widgets/space_btwn_text_input.dart';
-import '../login/login.dart';
-import '../login/widgets/custom_button.dart';
-import '../login/widgets/custom_text_input.dart';
-import '../login/widgets/smal_text_under_button.dart';
 
 class SecurityPassword extends StatefulWidget {
   final PageController controller;

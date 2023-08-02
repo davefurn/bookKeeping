@@ -11,14 +11,9 @@
 // WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 // See the License for the specific language governing permissions and
 // limitations under the License.
-import 'package:flutter/material.dart';
 
-import '../../../constants/colors.dart';
-import '../../../extension/size_config.dart';
-import '../../authentication/views/login/widgets/custom_button.dart';
-import '../../authentication/views/signUp/widgets/scroll_function.dart';
-import '../../authentication/views/signUp/widgets/topic_scroll.dart';
-import '../view/business_reg.dart';
+import '../../authentication/views/login/imports.dart';
+
 
 class ServiceVerificationDriverLicense extends StatelessWidget {
   const ServiceVerificationDriverLicense({

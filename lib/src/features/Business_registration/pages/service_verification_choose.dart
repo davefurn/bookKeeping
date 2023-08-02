@@ -1,17 +1,3 @@
-// Copyright 2023 Davefurn
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-//     http://www.apache.org/licenses/LICENSE-2.0
-// 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -30,7 +16,6 @@ class ServiceVerificationChoose extends StatelessWidget {
     required this.formKey3,
     required this.ref,
     required this.currentIndex,
- 
     required this.controller,
   }) : super(key: key);
 
@@ -42,7 +27,6 @@ class ServiceVerificationChoose extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
- 
     return SizedBox(
       child: Form(
         key: formKey3,
@@ -74,16 +58,13 @@ class ServiceVerificationChoose extends StatelessWidget {
             Align(
               alignment: Alignment.topLeft,
               child: Padding(
-                padding: EdgeInsets.only(
-                    left: getProportionateScreenWidth(20)),
+                padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
                 child: Text(
                   'Upload Documents',
                   style: Theme.of(context)
                       .textTheme
                       .labelMedium!
-                      .copyWith(
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18),
+                      .copyWith(fontWeight: FontWeight.w600, fontSize: 18),
                 ),
               ),
             ),
@@ -99,10 +80,7 @@ class ServiceVerificationChoose extends StatelessWidget {
                 ),
                 child: Text(
                   "To comply with safety and security measures, we have to verify our service providers.",
-                  style: Theme.of(context)
-                      .textTheme
-                      .bodySmall!
-                      .copyWith(
+                  style: Theme.of(context).textTheme.bodySmall!.copyWith(
                         fontSize: 14,
                       ),
                 ),
@@ -145,7 +123,6 @@ class ServiceVerificationChoose extends StatelessWidget {
               ref: ref,
               currentIndex: currentIndex,
               ontap: () {
-                
                 ref.read(currentIndexProvider.notifier).state = 3;
               },
               indexChange: 3,
@@ -165,13 +142,13 @@ class ServiceVerificationChoose extends StatelessWidget {
                         ),
                         curve: Curves.easeInOut);
                   } else if (currentIndex == 1) {
-                     controller.animateToPage(4,
+                    controller.animateToPage(4,
                         duration: const Duration(
                           milliseconds: 250,
                         ),
                         curve: Curves.easeInOut);
                   } else if (currentIndex == 2) {
-                     controller.animateToPage(5,
+                    controller.animateToPage(5,
                         duration: const Duration(
                           milliseconds: 250,
                         ),
@@ -188,4 +165,3 @@ class ServiceVerificationChoose extends StatelessWidget {
     );
   }
 }
-

@@ -1,35 +1,65 @@
-// Copyright 2023 Davefurn
-// 
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-// 
-//     http://www.apache.org/licenses/LICENSE-2.0
-// 
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-import 'package:flutter/material.dart';
+import 'package:bookkeep_app/src/features/Business_registration/model/business_reg_model.dart';
+import 'package:bookkeep_app/src/features/Business_registration/model/nigeriian_states_model.dart';
+import 'package:bookkeep_app/src/features/authentication/views/login/imports.dart';
+import 'package:csc_picker/csc_picker.dart';
 
-import '../../../constants/colors.dart';
-import '../../../extension/size_config.dart';
-import '../../../widgets/space_btwn_text_input.dart';
-import '../../authentication/views/login/widgets/custom_button.dart';
-import '../../authentication/views/login/widgets/custom_text_input.dart';
-import '../../authentication/views/signUp/widgets/scroll_function.dart';
-import '../../authentication/views/signUp/widgets/topic_scroll.dart';
-
-class ServiceInformationPage2 extends StatelessWidget {
+class ServiceInformationPage2 extends StatefulWidget {
   const ServiceInformationPage2({
     Key? key,
-    required this.formKey2,
     required this.controller,
+    required this.businessModel,
   }) : super(key: key);
 
-  final GlobalKey<FormState> formKey2;
   final PageController controller;
+
+  final BusinessModel businessModel;
+
+  @override
+  State<ServiceInformationPage2> createState() =>
+      _ServiceInformationPage2State();
+}
+
+class _ServiceInformationPage2State extends State<ServiceInformationPage2> {
+  final formKey2 = GlobalKey<FormState>();
+  late Future<List<NigerianStateModel>> nigerianStatesDetails;
+  List<NigerianStateModel>? nigerianStateList;
+  String? country;
+  String? state;
+  String? city;
+  late TextEditingController? officeAddress;
+  late TextEditingController? postalCode;
+  bool submitted1 = false;
+  var state1 = LoadingState.normal;
+
+  @override
+  void initState() {
+    officeAddress = TextEditingController();
+    postalCode = TextEditingController();
+    super.initState();
+  }
+
+  Future<void> createUserProcess2() async {
+    setState(() {
+      state1 = LoadingState.loading;
+    });
+    await PostRequest.createServiceProvider2(
+      context,
+      controller: widget.controller,
+      city: city!.trim(),
+      state: state!,
+      country: country!.trim(),
+      postalCode: postalCode!.text.trim(),
+      officeAddress: officeAddress!.text.trim(),
+    );
+    widget.businessModel.city = city!.trim();
+    widget.businessModel.state = state!;
+    widget.businessModel.country = country!.trim();
+    widget.businessModel.postalCode = postalCode!.text.trim();
+    widget.businessModel.officeAddress = officeAddress!.text.trim();
+    setState(() {
+      state1 = LoadingState.normal;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -39,22 +69,15 @@ class ServiceInformationPage2 extends StatelessWidget {
           key: formKey2,
           child: Column(
             children: [
-              SizedBox(
-                height: getProportionateScreenHeight(25),
-              ),
+              25.sbH,
               const ScrollFunction(),
-              SizedBox(
-                height: getProportionateScreenHeight(32),
-              ),
+              32.sbH,
               const TopicScroll(
                 text: "Service Information",
               ),
-              SizedBox(
-                height: getProportionateScreenHeight(16),
-              ),
+              16.sbH,
               Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20)),
+                padding: EdgeInsets.symmetric(horizontal: 20.h),
                 child: const Divider(
                   color: Color(0xffEAECF4),
                   thickness: 2,
@@ -63,100 +86,137 @@ class ServiceInformationPage2 extends StatelessWidget {
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
-                  padding: EdgeInsets.only(
-                      left: getProportionateScreenWidth(20)),
+                  padding: EdgeInsets.only(left: 20.w),
                   child: Text(
                     'Service Location',
                     style: Theme.of(context)
                         .textTheme
                         .labelMedium!
-                        .copyWith(
-                            fontWeight: FontWeight.w600,
-                            fontSize: 18),
+                        .copyWith(fontWeight: FontWeight.w600, fontSize: 18.sp),
                   ),
                 ),
               ),
-              SizedBox(
-                height: getProportionateScreenHeight(4),
-              ),
+              4.sbH,
               Align(
                 alignment: Alignment.topLeft,
                 child: Padding(
                   padding: EdgeInsets.only(
-                    right: getProportionateScreenWidth(59),
-                    left: getProportionateScreenWidth(20),
+                    right: 59.w,
+                    left: 20.w,
                   ),
                   child: Text(
                     "Kindly tell us where you are offering your services from",
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodySmall!
-                        .copyWith(
-                          fontSize: 14,
+                    style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                          fontSize: 14.sp,
                         ),
                   ),
                 ),
               ),
               const TextInputSpace(),
               CustomTextInput(
-                hintText: 'Country',
-                suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
-                      color: BookKeepingColors.secondaryColor,
-                    )),
-              ),
-              const TextInputSpace(),
-              CustomTextInput(
-                hintText: 'State',
-                suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
-                      color: BookKeepingColors.secondaryColor,
-                    )),
-              ),
-              const TextInputSpace(),
-              CustomTextInput(
-                hintText: 'City',
-                suffixIcon: IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.arrow_forward_ios,
-                      size: 18,
-                      color: BookKeepingColors.secondaryColor,
-                    )),
-              ),
-              const TextInputSpace(),
-              const CustomTextInput(
+                keyboardType: TextInputType.streetAddress,
+                maxLines: 3,
+                minLines: 1,
+                controller: officeAddress,
                 hintText: 'Official Address',
               ),
-               const TextInputSpace(),
-              const CustomTextInput(
+              const TextInputSpace(),
+              CustomTextInput(
+                keyboardType: TextInputType.number,
+                controller: postalCode,
                 hintText: 'Postal Code',
+                maxLength: 6,
               ),
-               SizedBox(
-                height: getProportionateScreenHeight(84),
-              ),
-              CustomButton(
-                color: BookKeepingColors.mainColor,
-                thickLine: 1,
-                onpressed: () async {
-                  if (formKey2.currentState!.validate()) {
-                    formKey2.currentState!.save();
+              const TextInputSpace(),
+              Padding(
+                padding: EdgeInsets.symmetric(horizontal: 20.w),
+                child: CSCPicker(
+                  
+                  defaultCountry: CscCountry.Nigeria,
 
-                    controller.nextPage(
-                        duration: const Duration(
-                          milliseconds: 250,
-                        ),
-                        curve: Curves.easeInOut);
+                  ///Enable disable state dropdown [OPTIONAL PARAMETER]
+                  showStates: true,
+                  disableCountry: true,
+
+                  /// Enable disable city drop down [OPTIONAL PARAMETER]
+                  showCities: true,
+
+                  ///Enable (get flat with country name) / Disable (Disable flag) / ShowInDropdownOnly (display flag in dropdown only) [OPTIONAL PARAMETER]
+                  flagState: CountryFlag.SHOW_IN_DROP_DOWN_ONLY,
+
+                  ///Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER] (USE with disabledDropdownDecoration)
+                  dropdownDecoration: BoxDecoration(
+                    color: BookKeepingColors.backgroundColour,
+                    border: Border.all(
+                      color: BookKeepingColors.mainColor,
+                    ),
+                    borderRadius: BorderRadius.circular(4.r),
+                  ),
+
+                  ///Disabled Dropdown box decoration to style your dropdown selector [OPTIONAL PARAMETER]  (USE with disabled dropdownDecoration)
+                  disabledDropdownDecoration: BoxDecoration(
+                    color: BookKeepingColors.backgroundColour,
+                    border: Border.all(
+                      color: const Color(0xffEAECF4),
+                    ),
+                    borderRadius: BorderRadius.circular(4.r),
+                  ),
+
+                  ///selected item style [OPTIONAL PARAMETER]
+                  selectedItemStyle:
+                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+
+                  ///DropdownDialog Heading style [OPTIONAL PARAMETER]
+                  dropdownHeadingStyle: TextStyle(
+                    color: BookKeepingColors.secondaryColor,
+                    fontSize: 17.sp,
+                  ),
+
+                  ///DropdownDialog Item style [OPTIONAL PARAMETER]
+                  dropdownItemStyle:
+                      TextStyle(fontSize: 16.sp, fontWeight: FontWeight.w400),
+
+                  ///Dialog box radius [OPTIONAL PARAMETER]
+                  dropdownDialogRadius: 10.0,
+
+                  ///Search bar radius [OPTIONAL PARAMETER]
+                  searchBarRadius: 10.0,
+
+                  ///triggers once country selected in dropdown
+                  onCountryChanged: (value) {
+                    setState(() {
+                      ///store value in country variable
+                      country = value;
+                    });
+                  },
+
+                  ///triggers once state selected in dropdown
+                  onStateChanged: (value) {
+                    setState(() {
+                      ///store value in state variable
+                      state = value;
+                    });
+                  },
+
+                  ///triggers once city selected in dropdown
+                  onCityChanged: (value) {
+                    setState(() {
+                      ///store value in city variable
+                      city = value;
+                    });
+                  },
+                ),
+              ),
+              76.sbH,
+              LoadingButton(
+                state: state1,
+                onTap: () {
+                  setState(() => submitted1 = true);
+                  if (formKey2.currentState!.validate()) {
+                    createUserProcess2();
                   }
                 },
                 text: 'Next',
-                textcolor: BookKeepingColors.backgroundColour,
               ),
             ],
           ),

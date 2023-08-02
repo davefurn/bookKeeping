@@ -32,6 +32,8 @@ class LocalStorage {
   final String refreshtoken = 'rtoken';
   final String loggedIn = 'loggedIn';
   final String walletBalance = '0.00';
+  final String isServiceProvider = "is_service_provide";
+  final String isCustomer = "is_customer";
 
   Future<SharedPreferences> get prefs async {
     if (_prefs != null) return _prefs!;
@@ -42,6 +44,36 @@ class LocalStorage {
   Future<bool> setFirstTime() async {
     var pref = await instance.prefs;
     return pref.setBool(firstTime, true);
+  }
+
+  Future<bool> setServiceProvider() async {
+    var pref = await instance.prefs;
+    return pref.setBool(isServiceProvider, true);
+  }
+
+  Future<bool> getServiceProvider() async {
+    var pref = await instance.prefs;
+    var isNotServiceProvider = pref.getBool(isServiceProvider) ?? false;
+    if (isNotServiceProvider) {
+      return false;
+    }
+    await setServiceProvider();
+    return true;
+  }
+
+  Future<bool> setCustomer() async {
+    var pref = await instance.prefs;
+    return pref.setBool(isCustomer, true);
+  }
+
+  Future<bool> getCustomer() async {
+    var pref = await instance.prefs;
+    var isNotCustomer = pref.getBool(isCustomer) ?? false;
+    if (isNotCustomer) {
+      return false;
+    }
+    await setCustomer();
+    return true;
   }
 
   Future<bool> getFirstTime() async {
@@ -161,6 +193,8 @@ class LocalStorage {
     await pref.setString(firstName, data.firstName);
     await pref.setString(email, data.email);
     await pref.setString(walletBalance, data.walletBalance);
+    await pref.setBool(isServiceProvider, data.isServiceProvider);
+    await pref.setBool(isCustomer, data.isCustomer);
   }
 
   Future<LoginData> getUserData() async {
@@ -170,8 +204,12 @@ class LocalStorage {
     var email_ = pref.getString(email)!;
     var walletBalance_ = pref.getString(walletBalance)!;
     var token_ = Token(refreshToken: refreshtoken, accessToken: accesstoken);
+    var isServiceProvider_ = pref.getBool(isServiceProvider)!;
+    var isCustomer_ = pref.getBool(isCustomer)!;
 
     return LoginData(
+        isServiceProvider: isServiceProvider_,
+        isCustomer: isCustomer_,
         email: email_,
         firstName: firstName_,
         walletBalance: walletBalance_,

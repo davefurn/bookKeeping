@@ -1,19 +1,10 @@
-// Copyright 2023 Davefurn
-//
-// Licensed under the Apache License, Version 2.0 (the "License");
-// you may not use this file except in compliance with the License.
-// You may obtain a copy of the License at
-//
-//     http://www.apache.org/licenses/LICENSE-2.0
-//
-// Unless required by applicable law or agreed to in writing, software
-// distributed under the License is distributed on an "AS IS" BASIS,
-// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-// See the License for the specific language governing permissions and
-// limitations under the License.
-
 class AppEndpoints {
-  static const String baseUrl = 'https://bookkeepingapi.up.railway.app';
-  static const String login = '/auth/jwt/create';
-  static const String createUser = '/customer/';
+  static const String baseUrl = 'https://bookkeeping.emmadjango.tech/';
+  static const String login = 'auth/jwt/create';
+  static const String createUser = 'customer/';
+  static const String serviceProvider1 =
+      'validate_service_provider_information/';
+  static const String serviceProvider2 = 'validate_service_provider_location/';
+  static const String getAllIndustry = 'industry/';
+  static const String businessRegstrationFinal = "service-provider/";
 }

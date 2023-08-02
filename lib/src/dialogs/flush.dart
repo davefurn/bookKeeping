@@ -18,10 +18,10 @@ class ShowFlushBar {
       messageText: Text(
         error ?? 'Something went wrong, Check your internet connection',
         textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: Color(0xffEF4444),
+        style:  TextStyle(
+          color: const Color(0xffEF4444),
           fontWeight: FontWeight.w500,
-          fontSize: 18,
+          fontSize: 18.sp,
         ),
       ),
       positionOffset: kBottomNavigationBarHeight.h,
@@ -44,10 +44,10 @@ class ShowFlushBar {
       messageText: Text(
         message ?? 'Successful',
         textAlign: TextAlign.center,
-        style: const TextStyle(
-          color: Color(0xff1DCD24),
+        style:  TextStyle(
+          color: const Color(0xff1DCD24),
           fontWeight: FontWeight.w500,
-          fontSize: 18,
+          fontSize: 18.sp,
         ),
       ),
       positionOffset: kBottomNavigationBarHeight.h,

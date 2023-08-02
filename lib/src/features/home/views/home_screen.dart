@@ -32,6 +32,8 @@ class _HomeState extends ConsumerState<Home> {
   String name = '';
   String income = '';
   String expenditure = '';
+  bool isCustomer = false;
+  bool isServiceProvider = false;
 
   @override
   void initState() {
@@ -40,7 +42,10 @@ class _HomeState extends ConsumerState<Home> {
       LocalStorage.instance.getUserData().then((value) {
         name = '${value.firstName.toUpperCase()} ';
         income = double.parse(value.walletBalance).toStringAsFixed(2);
-        expenditure =double.parse(value.walletBalance).toStringAsFixed(2);
+        expenditure = double.parse(value.walletBalance).toStringAsFixed(2);
+        isCustomer = value.isCustomer;
+        isServiceProvider = value.isServiceProvider;
+        print(value.isCustomer);
         // accessLevel = AccessLevel.demo;
       });
       setState(() {});
@@ -57,7 +62,8 @@ class _HomeState extends ConsumerState<Home> {
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.symmetric(horizontal: 20.w),
+              padding:
+                  EdgeInsets.symmetric(horizontal: 20.w).copyWith(bottom: 25.h),
               decoration: BoxDecoration(
                 color: BookKeepingColors.mainColor,
                 borderRadius: BorderRadius.only(
@@ -67,7 +73,7 @@ class _HomeState extends ConsumerState<Home> {
               ),
               child: Column(
                 children: [
-                  32.91.sbH,
+                  65.91.sbH,
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
@@ -75,7 +81,17 @@ class _HomeState extends ConsumerState<Home> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          isServiceProvider ?
                           const Text(
+                            'Welcome back Service Provider, ',
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w400,
+                              color: BookKeepingColors.backgroundColour,
+                            ),
+                          )
+                          :
+                        const  Text(
                             'Welcome back, ',
                             style: TextStyle(
                               fontSize: 16,
@@ -162,13 +178,14 @@ class _HomeState extends ConsumerState<Home> {
                             ),
                             4.sbH,
                             Text(
-                              income,
+                              'NGN $income',
                               style: TextStyle(
-                                fontSize: 36.sp,
+                                fontSize: 32.sp,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                               ),
                             ),
+                            2.sbH
                           ],
                         ),
                         VerticalDivider(
@@ -192,13 +209,14 @@ class _HomeState extends ConsumerState<Home> {
                             ),
                             4.sbH,
                             Text(
-                              expenditure,
+                              'NGN $expenditure',
                               style: TextStyle(
-                                fontSize: 36.sp,
+                                fontSize: 32.sp,
                                 fontWeight: FontWeight.w600,
                                 color: Colors.black,
                               ),
                             ),
+                            2.sbH
                           ],
                         ),
                       ],
