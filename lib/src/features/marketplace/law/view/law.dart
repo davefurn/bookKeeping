@@ -10,7 +10,6 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../widget/special_button_2.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
 
-
 class LawView extends ConsumerStatefulWidget {
   const LawView({Key? key}) : super(key: key);
 
@@ -21,11 +20,34 @@ class LawView extends ConsumerStatefulWidget {
 class _LawViewState extends ConsumerState<LawView> {
   List<AllAcountingIndustriesModel>? value;
   late RefreshController refreshController;
+  int lawValue = 2;
 
   @override
   void initState() {
     super.initState();
     refreshController = RefreshController();
+  }
+
+  Widget? loadingWidget() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          const CircularProgressIndicator(
+            strokeWidth: 3,
+            color: BookKeepingColors.mainColor,
+            backgroundColor: BookKeepingColors.backgroundColour,
+          ),
+          4.sbH,
+          Text('Loading law industries...',
+              style: TextStyle(
+                  fontSize: 16.sp,
+                  color: BookKeepingColors.mainColor,
+                  fontWeight: FontWeight.w600))
+        ],
+      ),
+    );
   }
 
   @override
@@ -39,7 +61,7 @@ class _LawViewState extends ConsumerState<LawView> {
             color: BookKeepingColors.backgroundColour //change your color here
             ),
         title: Text(
-          'Data',
+          'Law',
           style: TextStyle(
             fontSize: 24.sp,
             fontWeight: FontWeight.w600,
@@ -78,9 +100,7 @@ class _LawViewState extends ConsumerState<LawView> {
                     AppBar().preferredSize.height,
                 child: allAccountingIndustries.when(
                   data: (data) {
-                    if (data?.statusCode == 200 &&
-                        data != null &&
-                        data.data['category']['id'] == 3) {
+                    if (data?.statusCode == 200 && data != null) {
                       value = (data.data as List)
                           .map((e) => AllAcountingIndustriesModel.fromJson(e))
                           .toList();
@@ -121,20 +141,26 @@ class _LawViewState extends ConsumerState<LawView> {
                               child: ListView.separated(
                                 itemCount: value!.length,
                                 scrollDirection: Axis.vertical,
-                                separatorBuilder: (context, index) => 24.sbH,
+                                separatorBuilder: (context, index) =>
+                                    value![index].categoryl.id == 3
+                                        ? 24.sbH
+                                        : const SizedBox.shrink(),
                                 itemBuilder: (context, index) {
-                                  return TilesLaw(
-                                    allAcountingIndustriesModel: value![index],
-                                    onpressed: () {
-                                      pushTo(
-                                          context,
-                                          TaxFiling(
-                                            allAcountingIndustriesModel:
-                                                value![index],
-                                            index: index,
-                                          ));
-                                    }, 
-                                  );
+                                  return value![index].categoryl.id == 3
+                                      ? TilesLaw(
+                                          allAcountingIndustriesModel:
+                                              value![index],
+                                          onpressed: () {
+                                            pushTo(
+                                                context,
+                                                TaxFiling(
+                                                  allAcountingIndustriesModel:
+                                                      value![index++],
+                                                  index: index++,
+                                                ));
+                                          },
+                                        )
+                                      : const SizedBox.shrink();
                                 },
                               ),
                             )
@@ -186,12 +212,7 @@ class _LawViewState extends ConsumerState<LawView> {
                           ),
                     ),
                   ),
-                  loading: () => const Center(
-                    child: CircularProgressIndicator.adaptive(
-                      value: 20,
-                      backgroundColor: BookKeepingColors.mainColor,
-                    ),
-                  ),
+                  loading: () => loadingWidget(),
                 ),
               ),
             ),

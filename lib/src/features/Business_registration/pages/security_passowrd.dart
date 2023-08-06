@@ -161,7 +161,7 @@ class _SecurityPasswordBusinessState extends State<SecurityPasswordBusiness> {
                         passwordController.text.trim();
                     widget.controller.nextPage(
                         duration: const Duration(
-                          milliseconds: 250,
+                          milliseconds: 100,
                         ),
                         curve: Curves.easeInOut);
                   }

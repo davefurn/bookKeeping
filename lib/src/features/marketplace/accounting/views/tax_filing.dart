@@ -25,6 +25,23 @@ class TaxFiling extends ConsumerStatefulWidget {
 class _TaxFilingState extends ConsumerState<TaxFiling> {
   List<TaxFilingModel>? value;
   late RefreshController refreshController;
+
+  @override
+  void initState() {
+    super.initState();
+    refreshController = RefreshController();
+  }
+
+  Widget loadingWidget() {
+    return const Center(
+      child:  CircularProgressIndicator(
+        strokeWidth: 3,
+        color: BookKeepingColors.mainColor,
+        backgroundColor: BookKeepingColors.backgroundColour,
+      ),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     var specificIndustry = ref.watch(specificIndustryProvider(widget.index));
@@ -118,13 +135,13 @@ class _TaxFilingState extends ConsumerState<TaxFiling> {
                                 pushTo(
                                     context,
                                     FurtherPage(
-                                      index: index, taxFilingModel: value![index],
+                                      index: index,
+                                      taxFilingModel: value![index],
                                     ));
                               },
                               child: Cards(
                                 index: index,
-                                description:
-                                    value![index].serviceDescription,
+                                description: value![index].serviceDescription,
                                 image: 'assets/images/sample_image.png',
                                 price: '₦50,000.00',
                                 rating: '4.5',
@@ -177,12 +194,7 @@ class _TaxFilingState extends ConsumerState<TaxFiling> {
                       ),
                 ),
               ),
-              loading: () => const Center(
-                child: CircularProgressIndicator.adaptive(
-                  value: 20,
-                  backgroundColor: BookKeepingColors.mainColor,
-                ),
-              ),
+              loading: () => loadingWidget()
             ),
           ),
         ],

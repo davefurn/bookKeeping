@@ -38,29 +38,6 @@ class _ServiceInformationPage2State extends State<ServiceInformationPage2> {
     super.initState();
   }
 
-  Future<void> createUserProcess2() async {
-    setState(() {
-      state1 = LoadingState.loading;
-    });
-    await PostRequest.createServiceProvider2(
-      context,
-      controller: widget.controller,
-      city: city!.trim(),
-      state: state!,
-      country: country!.trim(),
-      postalCode: postalCode!.text.trim(),
-      officeAddress: officeAddress!.text.trim(),
-    );
-    widget.businessModel.city = city!.trim();
-    widget.businessModel.state = state!;
-    widget.businessModel.country = country!.trim();
-    widget.businessModel.postalCode = postalCode!.text.trim();
-    widget.businessModel.officeAddress = officeAddress!.text.trim();
-    setState(() {
-      state1 = LoadingState.normal;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -114,24 +91,43 @@ class _ServiceInformationPage2State extends State<ServiceInformationPage2> {
               ),
               const TextInputSpace(),
               CustomTextInput(
-                keyboardType: TextInputType.streetAddress,
-                maxLines: 3,
-                minLines: 1,
-                controller: officeAddress,
-                hintText: 'Official Address',
-              ),
+                  textInputAction: TextInputAction.next,
+                  keyboardType: TextInputType.streetAddress,
+                  maxLines: 3,
+                  minLines: 1,
+                  controller: officeAddress,
+                  hintText: 'Official Address',
+                  autovalidateMode: submitted1
+                      ? AutovalidateMode.onUserInteraction
+                      : AutovalidateMode.disabled,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter your office address";
+                    }
+                    return null;
+                  }),
               const TextInputSpace(),
               CustomTextInput(
-                keyboardType: TextInputType.number,
-                controller: postalCode,
-                hintText: 'Postal Code',
-                maxLength: 6,
-              ),
+                  textInputAction: TextInputAction.done,
+                  keyboardType: TextInputType.number,
+                  controller: postalCode,
+                  hintText: 'Postal Code',
+                  maxLength: 6,
+                  autovalidateMode: submitted1
+                      ? AutovalidateMode.onUserInteraction
+                      : AutovalidateMode.disabled,
+                  validator: (value) {
+                    if (value!.isEmpty) {
+                      return "Please enter your office address";
+                    } else if (value.length < 6) {
+                      return 'Postal Code must be 6 digits';
+                    }
+                    return null;
+                  }),
               const TextInputSpace(),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 20.w),
                 child: CSCPicker(
-                  
                   defaultCountry: CscCountry.Nigeria,
 
                   ///Enable disable state dropdown [OPTIONAL PARAMETER]
@@ -209,15 +205,27 @@ class _ServiceInformationPage2State extends State<ServiceInformationPage2> {
               ),
               76.sbH,
               LoadingButton(
-                state: state1,
-                onTap: () {
-                  setState(() => submitted1 = true);
-                  if (formKey2.currentState!.validate()) {
-                    createUserProcess2();
-                  }
-                },
-                text: 'Next',
-              ),
+                  state: state1,
+                  onTap: () async {
+                    setState(() => submitted1 = true);
+                    if (formKey2.currentState!.validate()) {
+                      formKey2.currentState!.save();
+
+                      widget.businessModel.city = city!.trim();
+                      widget.businessModel.state = state!;
+                      widget.businessModel.country = country!.trim();
+                      widget.businessModel.postalCode = postalCode!.text.trim();
+                      widget.businessModel.officeAddress =
+                          officeAddress!.text.trim();
+
+                      widget.controller.nextPage(
+                          duration: const Duration(
+                            milliseconds: 100,
+                          ),
+                          curve: Curves.easeInOut);
+                    }
+                  },
+                  text: 'Next'),
             ],
           ),
         ),

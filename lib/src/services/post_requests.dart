@@ -51,6 +51,12 @@ class PostRequest {
             //     context: context,
             //   ).whenComplete(() => pushToAndClearStack(context, const Auth()));
             // }
+          } else if (value.statusCode == 502) {
+            String message = 'Server Error, Bad Gateway';
+            ShowFlushBar.showError(
+              error: message,
+              context: context,
+            );
           } else {
             late String message;
             try {
@@ -228,16 +234,15 @@ class PostRequest {
       'service_description': serviceDescription,
     }).then((value) async {
       if (value != null) {
-        print(value.statusCode);
         if (value.statusCode == 201) {
           controller.nextPage(
               duration: const Duration(
-                milliseconds: 250,
+                milliseconds: 100,
               ),
               curve: Curves.easeInOut);
         } else {
-          Map<String, List<String>> convertedResponse =
-              Map<String, List<String>>.from(value.data);
+          Map<String, List<dynamic>> convertedResponse =
+              Map<String, List<dynamic>>.from(value.data);
           // try {
           //   responses = {
           //     value.data['service_email'].join(', '),
@@ -251,9 +256,10 @@ class PostRequest {
           // } catch (_) {
           //   responses = 'Something went wrong';
           // }
-
+          // List<String> response = [];
+          // convertedResponse.keys.map((e) => response);
           ShowFlushBar.showError(
-            error: convertedResponse.toString(),
+            error: convertedResponse.values.join(', '),
             context: context,
           );
         }
@@ -346,6 +352,8 @@ class PostRequest {
       'postal_code': postalCode,
       'service_phone_number': phone,
     }).then((value) async {
+      print('${AppEndpoints.baseUrl}$path');
+
       if (value != null) {
         print('${AppEndpoints.baseUrl}$path');
         print(value.statusCode);
@@ -363,6 +371,8 @@ class PostRequest {
             message = 'Something went wrong';
           }
 
+          print('${AppEndpoints.baseUrl}$path');
+          print(value.statusCode);
           ShowFlushBar.showError(
             error: message,
             context: context,

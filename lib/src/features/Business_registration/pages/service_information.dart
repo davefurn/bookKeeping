@@ -73,10 +73,24 @@ class _ServiceInformationPageState
   String? selectedValue;
   Widget? loadingWidget() {
     return SizedBox(
-      height: 750.h,
-      child: const Center(
-          child: CircularProgressIndicator.adaptive(
-        backgroundColor: BookKeepingColors.backgroundColour,
+      height: 600.h,
+      child: Center(
+          child: SizedBox.expand(
+        child: Column(
+          children: [
+            const CircularProgressIndicator(
+              strokeWidth: 3,
+              color: BookKeepingColors.mainColor,
+              backgroundColor: BookKeepingColors.backgroundColour,
+            ),
+            4.sbH,
+            Text('Loading Industries...',
+                style: TextStyle(
+                    fontSize: 16.sp,
+                    color: BookKeepingColors.mainColor,
+                    fontWeight: FontWeight.w600))
+          ],
+        ),
       )),
     );
   }
@@ -137,6 +151,7 @@ class _ServiceInformationPageState
                         CustomTextInput(
                           hintText: 'Service Phone Number',
                           controller: servicePhoneNumber,
+                          textInputAction: TextInputAction.next,
                           autovalidateMode: submitted1
                               ? AutovalidateMode.onUserInteraction
                               : AutovalidateMode.disabled,
@@ -145,6 +160,8 @@ class _ServiceInformationPageState
                               return "Please enter your phone Number";
                             } else if (!phoneRegExp.hasMatch(value)) {
                               return "Please enter valid phone number";
+                            } else if (value.length > 11) {
+                              return "Your phone number is over 11 characters";
                             }
                             return null;
                           },
@@ -159,14 +176,14 @@ class _ServiceInformationPageState
                               : AutovalidateMode.disabled,
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return "Please Enter your email";
+                              return "Please enter your email";
                             } else if (!emailValidatorRegExp.hasMatch(value)) {
-                              return "Please Enter Valid Email";
+                              return "Please Enter valid Email";
                             }
                             return null;
                           },
                           keyboardType: TextInputType.emailAddress,
-                          textInputAction: TextInputAction.next,
+                          textInputAction: TextInputAction.done,
                         ),
                         const TextInputSpace(),
                         Padding(
@@ -308,8 +325,20 @@ class _ServiceInformationPageState
                         ),
                         16.sbH,
                         CustomTextInput(
+                          textInputAction: TextInputAction.done,
+                          keyboardType: TextInputType.multiline,
+                          maxLines: 2,
                           controller: serviceDescription,
                           hintText: 'Kindly enter description',
+                          validator: (String? value) {
+                            if (value == null || value.isEmpty) {
+                              return "Please enter the desription of your business";
+                            }
+                            return null;
+                          },
+                          autovalidateMode: submitted1
+                              ? AutovalidateMode.onUserInteraction
+                              : AutovalidateMode.disabled,
                         ),
                         12.sbH,
                         LoadingButton(
@@ -317,6 +346,7 @@ class _ServiceInformationPageState
                             onTap: () {
                               setState(() => submitted1 = true);
                               if (formKey1.currentState!.validate()) {
+                                formKey1.currentState!.save();
                                 createUserProcess1();
                               }
                             },

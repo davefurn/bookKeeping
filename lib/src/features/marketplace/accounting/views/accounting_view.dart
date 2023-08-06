@@ -34,11 +34,33 @@ class AccountingView extends ConsumerStatefulWidget {
 class _AccountingViewState extends ConsumerState<AccountingView> {
   List<AllAcountingIndustriesModel>? value;
   late RefreshController refreshController;
-
+  int accountingValue = 2;
   @override
   void initState() {
     super.initState();
     refreshController = RefreshController();
+  }
+
+  Widget? loadingWidget() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+      const CircularProgressIndicator(
+        strokeWidth: 3,
+        color: BookKeepingColors.mainColor,
+        backgroundColor: BookKeepingColors.backgroundColour,
+      ),
+      4.sbH,
+      Text('Loading accounting industries...',
+          style: TextStyle(
+              fontSize: 16.sp,
+              color: BookKeepingColors.mainColor,
+              fontWeight: FontWeight.w600))
+      ],
+      ),
+    );
   }
 
   @override
@@ -91,9 +113,7 @@ class _AccountingViewState extends ConsumerState<AccountingView> {
                     AppBar().preferredSize.height,
                 child: allAccountingIndustries.when(
                   data: (data) {
-                    if (data?.statusCode == 200 &&
-                        data != null &&
-                        data.data['category']['id'] == 2) {
+                    if (data?.statusCode == 200 && data != null) {
                       value = (data.data as List)
                           .map((e) => AllAcountingIndustriesModel.fromJson(e))
                           .toList();
@@ -134,26 +154,33 @@ class _AccountingViewState extends ConsumerState<AccountingView> {
                               child: ListView.separated(
                                 itemCount: value!.length,
                                 scrollDirection: Axis.vertical,
-                                separatorBuilder: (context, index) => 24.sbH,
+                                separatorBuilder: (context, index) =>
+                                    value![index].categoryl.id == 2
+                                        ? 24.sbH
+                                        : const SizedBox.shrink(),
                                 itemBuilder: (context, index) {
-                                  return TilesAccounting(
-                                    allAcountingIndustriesModel: value![index],
-                                    onpressed: () {
-                                      pushTo(
-                                          context,
-                                          TaxFiling(
-                                            allAcountingIndustriesModel:
-                                                value![index],
-                                            index: index,
-                                          ));
-                                    },
-                                  );
+                                  return value![index].categoryl.id == 2
+                                      ? TilesAccounting(
+                                          allAcountingIndustriesModel:
+                                              value![index],
+                                          onpressed: () {
+                                            print(index);
+                                            pushTo(
+                                                context,
+                                                TaxFiling(
+                                                  allAcountingIndustriesModel:
+                                                      value![index++],
+                                                  index: index++,
+                                                ));
+                                          },
+                                        )
+                                      : const SizedBox.shrink();
                                 },
                               ),
                             )
                           : Center(
                               child: Text(
-                              'No Industries yet for accountting',
+                              'No Industries yet for accounting',
                               style: TextStyle(
                                   fontSize: 32.sp,
                                   color: BookKeepingColors.secondaryColor,
@@ -199,12 +226,7 @@ class _AccountingViewState extends ConsumerState<AccountingView> {
                           ),
                     ),
                   ),
-                  loading: () => const Center(
-                    child: CircularProgressIndicator.adaptive(
-                      value: 20,
-                      backgroundColor: BookKeepingColors.mainColor,
-                    ),
-                  ),
+                  loading: () => loadingWidget(),
                 ),
               ),
             ),

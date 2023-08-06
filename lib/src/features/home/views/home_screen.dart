@@ -45,7 +45,7 @@ class _HomeState extends ConsumerState<Home> {
         expenditure = double.parse(value.walletBalance).toStringAsFixed(2);
         isCustomer = value.isCustomer;
         isServiceProvider = value.isServiceProvider;
-        print(value.isCustomer);
+       
         // accessLevel = AccessLevel.demo;
       });
       setState(() {});

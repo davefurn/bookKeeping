@@ -32,14 +32,14 @@ class _BusinessRegistrationState extends ConsumerState<BusinessRegistration> {
 
   final controller = PageController(initialPage: 0);
 
-  final formKey3 = GlobalKey<FormState>();
-  final formKey4 = GlobalKey<FormState>();
+  // final formKey3 = GlobalKey<FormState>();
+  // final formKey4 = GlobalKey<FormState>();
 
-  final formKey5 = GlobalKey<FormState>();
-  final formKey6 = GlobalKey<FormState>();
-  final formKey7 = GlobalKey<FormState>();
-  final formKey8 = GlobalKey<FormState>();
-  final formKey9 = GlobalKey<FormState>();
+  // final formKey5 = GlobalKey<FormState>();
+  // final formKey6 = GlobalKey<FormState>();
+  // final formKey7 = GlobalKey<FormState>();
+  // final formKey8 = GlobalKey<FormState>();
+  // final formKey9 = GlobalKey<FormState>();
 
   @override
   void initState() {
@@ -69,9 +69,7 @@ class _BusinessRegistrationState extends ConsumerState<BusinessRegistration> {
             pDleft: 25.w,
             fontSize: 32.sp,
           ),
-          SizedBox(
-            height: getProportionateScreenHeight(8),
-          ),
+          8.sbH,
           Padding(
             padding: EdgeInsets.only(
               right: 53.w,
@@ -89,6 +87,7 @@ class _BusinessRegistrationState extends ConsumerState<BusinessRegistration> {
             height: 730.h,
             width: double.maxFinite,
             child: PageView(
+              physics: const NeverScrollableScrollPhysics(),
               controller: controller,
               children: [
                 ServiceInformationPage(

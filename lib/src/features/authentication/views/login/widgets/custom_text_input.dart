@@ -65,7 +65,7 @@ class CustomTextInput extends StatelessWidget {
     SizeConfig().init(context);
     return Padding(
       padding: EdgeInsets.symmetric(
-        horizontal: hpD ?? getProportionateScreenWidth(20),
+        horizontal: hpD ?? 20.w,
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -92,13 +92,13 @@ class CustomTextInput extends StatelessWidget {
             onEditingComplete: onEditingComplete,
             onTap: onTap,
             enabled: enabled,
-            cursorHeight: 19,
-            style: const TextStyle(
+            cursorHeight: 19.h,
+            style:  TextStyle(
               fontFamily: 'Livvic',
               fontWeight: FontWeight.w400,
-              fontSize: 20,
+              fontSize: 20.r,
               height: 1,
-              color: Color(0xFF1F2937),
+              color: const Color(0xFF1F2937),
             ),
             decoration: InputDecoration(
               // contentPadding: EdgeInsets.symmetric(
@@ -111,30 +111,30 @@ class CustomTextInput extends StatelessWidget {
               hintStyle: Theme.of(context)
                   .textTheme
                   .bodySmall!
-                  .copyWith(fontSize: 14, color: const Color(0xffAEB0B9)),
+                  .copyWith(fontSize: 14.r, color: const Color(0xffAEB0B9)),
               fillColor: BookKeepingColors.backgroundColour,
               filled: true,
 
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4.r),
               ),
               enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4.r),
                 borderSide:
                     const BorderSide(color: Color(0xffEAECF4), width: 2),
               ),
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4.r),
                 borderSide: const BorderSide(
                     color: BookKeepingColors.mainColor, width: 2),
               ),
               focusedErrorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4.r),
                 borderSide: const BorderSide(
                     color: BookKeepingColors.failureColor, width: 2),
               ),
               errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(4),
+                borderRadius: BorderRadius.circular(4.r),
                 borderSide: const BorderSide(
                     color: BookKeepingColors.failureColor, width: 2),
               ),

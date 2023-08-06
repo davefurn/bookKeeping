@@ -99,7 +99,7 @@ class _LoginState extends State<Login> {
                     if ((value == null || value.isEmpty) ||
                         !RegExp(r"^[a-zA-Z0-9.]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
                             .hasMatch(value)) {
-                      return "Please enter your email";
+                      return "Please enter a valid email";
                     }
                     return null;
                   },
@@ -126,7 +126,7 @@ class _LoginState extends State<Login> {
                   if ((v == null || v.isEmpty) ||
                       !RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*.:;+=-?&])[A-Za-z\d@$!%*.?&]{8,}$')
                           .hasMatch(v)) {
-                    return 'Please enter a password';
+                    return 'Please enter a valid password';
                   } else if (v.length < 6) {
                     return 'The password is too short';
                   }

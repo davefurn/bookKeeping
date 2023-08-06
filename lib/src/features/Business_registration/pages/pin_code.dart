@@ -87,11 +87,14 @@ class _PinCodeBusinessState extends State<PinCodeBusiness> {
         SizedBox(
           height: 32.h,
         ),
-        Text(
-          "Kindly enter your 4 secured security pin",
-          style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                fontSize: 16,
-              ),
+        Padding(
+          padding:  EdgeInsets.symmetric(horizontal: 20.w),
+          child: Text(
+            "Kindly enter your 4 secured security pin",
+            style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                  fontSize: 16,
+                ),
+          ),
         ),
         SizedBox(
           height: 20.h,
@@ -135,9 +138,9 @@ class _PinCodeBusinessState extends State<PinCodeBusiness> {
                   errorBorderColor: BookKeepingColors.failureColor,
                   activeColor: BookKeepingColors.mainColor,
                   shape: PinCodeFieldShape.box,
-                  borderRadius: BorderRadius.circular(5),
-                  fieldHeight: getProportionateScreenHeight(48),
-                  fieldWidth: getProportionateScreenWidth(48),
+                  borderRadius: BorderRadius.circular(5.r),
+                  fieldHeight: 48.h,
+                  fieldWidth: 48.w,
                   activeFillColor: hasError ? Colors.orange : Colors.white,
                 ),
                 cursorColor: Colors.black,
@@ -191,7 +194,7 @@ class _PinCodeBusinessState extends State<PinCodeBusiness> {
               } else {
                 setState(() {
                   hasError2 = false;
-               
+
                   createBusinessFinally();
                 });
               }
@@ -236,7 +239,7 @@ class _PinCodeBusinessState extends State<PinCodeBusiness> {
               errorBorderColor: BookKeepingColors.failureColor,
               activeColor: BookKeepingColors.mainColor,
               shape: PinCodeFieldShape.box,
-              borderRadius: BorderRadius.circular(5),
+              borderRadius: BorderRadius.circular(5.r),
               fieldHeight: 48.h,
               fieldWidth: 48.w,
               activeFillColor: hasError ? Colors.orange : Colors.white,

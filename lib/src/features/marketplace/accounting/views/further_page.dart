@@ -18,7 +18,6 @@ import 'package:bookkeep_app/src/features/authentication/views/login/widgets/cus
 import 'package:bookkeep_app/src/features/marketplace/accounting/model/tax_filing_models.dart';
 import 'package:bookkeep_app/src/features/marketplace/accounting/views/orders.dart';
 import 'package:bookkeep_app/src/features/marketplace/widget/card.dart';
-import 'package:bookkeep_app/src/features/marketplace/widget/expandable_text.dart';
 import 'package:bookkeep_app/src/features/marketplace/widget/specialbutton.dart';
 import 'package:bookkeep_app/src/features/marketplace/widget/sub_text.dart';
 import 'package:bookkeep_app/src/features/marketplace/widget/text_in_descrip.dart';
@@ -106,16 +105,17 @@ class _FurtherPageState extends State<FurtherPage> {
                 ),
               ),
               26.sbH,
-               IconAndText(
+              IconAndText(
                 icon: Icons.location_pin,
-                bottomString: '${widget.taxFilingModel.city}, ${widget.taxFilingModel.country}',
-                topString: 'Location',
+                bottomString: 'Location',
+                topString:
+                    '${widget.taxFilingModel.city}, ${widget.taxFilingModel.country}',
               ),
               19.sbH,
               const IconAndText(
                 icon: Icons.star,
                 bottomString: 'Rating',
-                topString: 'Location',
+                topString: '5 Stars',
               ),
               19.sbH,
               const IconAndText(
@@ -132,7 +132,7 @@ class _FurtherPageState extends State<FurtherPage> {
               19.sbH,
               const IconAndText(
                 icon: Icons.timelapse,
-                bottomString: 'Average Response Time',
+                bottomString: 'Average Delay Time',
                 topString: '2 hours',
               ),
               19.sbH,
@@ -154,7 +154,7 @@ class _FurtherPageState extends State<FurtherPage> {
             Hero(
               tag: widget.index,
               child: Image.asset(
-                'assets/images/sample_image2.png',
+                'assets/images/sample_image.png',
                 height: 200.h,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
@@ -193,12 +193,17 @@ class _FurtherPageState extends State<FurtherPage> {
                 left: 20.w,
                 right: 20.w,
               ),
-              child:  Align(
-                  alignment: Alignment.topLeft,
-                  child: ExpandableText(
-                    widget.taxFilingModel.serviceDescription,
-                    trimLines: 3,
-                  )),
+              child: Align(
+                alignment: Alignment.topLeft,
+                child: Text(
+                  widget.taxFilingModel.serviceDescription,
+                  maxLines: 5,
+                  style: TextStyle(
+                    fontSize: 14.sp,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ),
             ),
             16.sbH,
             const Divider(

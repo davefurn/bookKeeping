@@ -1,7 +1,5 @@
-
 import 'package:bookkeep_app/src/features/Business_registration/widget/choose_gallery.dart';
 import 'package:flutter/material.dart';
-
 
 import '../../../constants/colors.dart';
 import '../../../extension/size_config.dart';
@@ -9,11 +7,11 @@ import '../../../extension/size_config.dart';
 import '../../authentication/views/signUp/widgets/scroll_function.dart';
 import '../../authentication/views/signUp/widgets/topic_scroll.dart';
 
-
 class ServiceVerifcationChooseImage extends StatelessWidget {
   final PageController controller;
   const ServiceVerifcationChooseImage({
-    Key? key, required this.controller,
+    Key? key,
+    required this.controller,
   }) : super(key: key);
 
   @override
@@ -50,16 +48,13 @@ class ServiceVerifcationChooseImage extends StatelessWidget {
           Align(
             alignment: Alignment.topLeft,
             child: Padding(
-              padding: EdgeInsets.only(
-                  left: getProportionateScreenWidth(20)),
+              padding: EdgeInsets.only(left: getProportionateScreenWidth(20)),
               child: Text(
                 'Upload Photo',
                 style: Theme.of(context)
                     .textTheme
                     .labelMedium!
-                    .copyWith(
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18),
+                    .copyWith(fontWeight: FontWeight.w600, fontSize: 18),
               ),
             ),
           ),
@@ -75,10 +70,7 @@ class ServiceVerifcationChooseImage extends StatelessWidget {
               ),
               child: Text(
                 "To comply with safety and security measures, we have to verify our service providers.",
-                style: Theme.of(context)
-                    .textTheme
-                    .bodySmall!
-                    .copyWith(
+                style: Theme.of(context).textTheme.bodySmall!.copyWith(
                       fontSize: 14,
                     ),
               ),
@@ -94,35 +86,34 @@ class ServiceVerifcationChooseImage extends StatelessWidget {
                 horizontal: getProportionateScreenWidth(90)),
             decoration: const BoxDecoration(
                 image: DecorationImage(
-                    image:
-                        AssetImage('assets/images/photo.png'))),
+                    image: AssetImage('assets/images/photo.png'))),
           ),
           SizedBox(
             height: getProportionateScreenHeight(32),
           ),
-           ChooseGallery(
+          ChooseGallery(
             icons: Icons.image,
             text: 'Choose from Gallery',
             ontap: () {
               controller.nextPage(
-                                  duration: const Duration(
-                                    milliseconds: 250,
-                                  ),
-                                  curve: Curves.easeInOut);
+                  duration: const Duration(
+                    milliseconds: 250,
+                  ),
+                  curve: Curves.easeInOut);
             },
           ),
           SizedBox(
             height: getProportionateScreenHeight(16),
           ),
-           ChooseGallery(
+          ChooseGallery(
             icons: Icons.camera,
             text: 'Take from Camera',
             ontap: () {
               controller.nextPage(
-                                  duration: const Duration(
-                                    milliseconds: 250,
-                                  ),
-                                  curve: Curves.easeInOut);
+                  duration: const Duration(
+                    milliseconds: 250,
+                  ),
+                  curve: Curves.easeInOut);
             },
           ),
         ],
@@ -130,4 +121,3 @@ class ServiceVerifcationChooseImage extends StatelessWidget {
     );
   }
 }
-

@@ -60,7 +60,7 @@ class Cards extends StatelessWidget {
                   image,
                   height: 116.h,
                   width: 116.w,
-                  fit: BoxFit.fill,
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
