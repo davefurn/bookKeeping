@@ -142,7 +142,7 @@ class _TaxFilingState extends ConsumerState<TaxFiling> {
                               child: Cards(
                                 index: index,
                                 description: value![index].serviceDescription,
-                                image: 'assets/images/sample_image.png',
+                                image: 'assets/images/sample_image.jpeg',
                                 price: '₦50,000.00',
                                 rating: '4.5',
                               ),

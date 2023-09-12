@@ -1,5 +1,3 @@
-
-
 import 'package:bookkeep_app/src/features/authentication/views/login/imports.dart';
 
 class CustomButton extends StatelessWidget {
@@ -35,12 +33,15 @@ class CustomButton extends StatelessWidget {
             color: borderColor ?? BookKeepingColors.mainColor,
           ),
         ),
-        child: Text(text,
-            style: Theme.of(context).textTheme.bodySmall!.copyWith(
-                  fontSize: 20,
-                  color: textcolor ??BookKeepingColors.backgroundColour,
-                  fontWeight: FontWeight.w600,
-                )),
+        child: Text(
+          text,
+          textAlign: TextAlign.center,
+          style: Theme.of(context).textTheme.bodySmall!.copyWith(
+                fontSize: 20,
+                color: textcolor ?? BookKeepingColors.backgroundColour,
+                fontWeight: FontWeight.w600,
+              ),
+        ),
       ),
     );
   }

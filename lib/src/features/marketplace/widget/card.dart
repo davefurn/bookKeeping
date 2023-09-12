@@ -18,7 +18,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../constants/colors.dart';
 
-class Cards extends StatelessWidget {
+class Cards extends StatefulWidget {
   final String description;
   final String image;
   final String price;
@@ -34,6 +34,12 @@ class Cards extends StatelessWidget {
   });
 
   @override
+  State<Cards> createState() => _CardsState();
+}
+
+class _CardsState extends State<Cards> {
+  bool liked = true;
+  @override
   Widget build(BuildContext context) {
     return Container(
       height: 148.h,
@@ -46,7 +52,8 @@ class Cards extends StatelessWidget {
         right: 20.w,
         left: 20.w,
       ),
-      padding: EdgeInsets.only(left: 15.w, top: 16.h, bottom: 16.h, right: 13.w),
+      padding:
+          EdgeInsets.only(left: 15.w, top: 16.h, bottom: 16.h, right: 13.w),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
@@ -55,9 +62,9 @@ class Cards extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(6.r),
               child: Hero(
-                tag: index,
+                tag: widget.index,
                 child: Image.asset(
-                  image,
+                  widget.image,
                   height: 116.h,
                   width: 116.w,
                   fit: BoxFit.cover,
@@ -78,7 +85,7 @@ class Cards extends StatelessWidget {
                     children: [
                       Flexible(
                         child: Text(
-                          description,
+                          widget.description,
                           overflow: TextOverflow.ellipsis,
                           maxLines: 2,
                           style: TextStyle(
@@ -90,7 +97,15 @@ class Cards extends StatelessWidget {
                       ),
                       SizedBox(
                         child: IconButton(
-                            onPressed: () {}, icon: const Icon(Icons.favorite, color: BookKeepingColors.mainColor,)),
+                            onPressed: () {
+                              setState(() {
+                                liked = !liked;
+                              });
+                            },
+                            icon: Icon(
+                              liked ? Icons.favorite : Icons.favorite_border,
+                              color: BookKeepingColors.mainColor,
+                            )),
                       )
                     ],
                   ),
@@ -100,7 +115,7 @@ class Cards extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      price,
+                      widget.price,
                       style: TextStyle(
                         fontSize: 20.sp,
                         fontWeight: FontWeight.w700,
@@ -115,7 +130,7 @@ class Cards extends StatelessWidget {
                         ),
                         7.sbW,
                         Text(
-                          rating,
+                          widget.rating,
                           style: TextStyle(
                             fontSize: 16.sp,
                             fontWeight: FontWeight.w400,

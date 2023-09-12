@@ -154,7 +154,7 @@ class _FurtherPageState extends State<FurtherPage> {
             Hero(
               tag: widget.index,
               child: Image.asset(
-                'assets/images/sample_image.png',
+                'assets/images/sample_image.jpeg',
                 height: 200.h,
                 width: double.maxFinite,
                 fit: BoxFit.cover,
@@ -380,7 +380,7 @@ class _FurtherPageState extends State<FurtherPage> {
                   const SubTitle(text: 'All Feedbacks (30+)'),
                   16.sbH,
                   const ReviewCard(
-                    image: 'assets/images/sample_image.png',
+                    image: 'assets/images/sample_image.jpeg',
                     name: "Omotola Bello",
                     location: "Lagos, Nigeria",
                     description:
@@ -390,7 +390,7 @@ class _FurtherPageState extends State<FurtherPage> {
                   ),
                   24.sbH,
                   const ReviewCard(
-                    image: 'assets/images/sample_image.png',
+                    image: 'assets/images/sample_image.jpeg',
                     name: "Omotola Bello",
                     location: "Lagos, Nigeria",
                     description:
@@ -400,7 +400,7 @@ class _FurtherPageState extends State<FurtherPage> {
                   ),
                   24.sbH,
                   const ReviewCard(
-                    image: 'assets/images/sample_image.png',
+                    image: 'assets/images/sample_image.jpeg',
                     name: "Omotola Bello",
                     location: "Lagos, Nigeria",
                     description:
@@ -424,7 +424,7 @@ class _FurtherPageState extends State<FurtherPage> {
                     index: 45,
                     description:
                         'sads dfwefrge ergeg ergegr   ghfyv jhgfb hgfgftr gytfyjhbjbe egegerxsdjbc ',
-                    image: 'assets/images/sample_image.png',
+                    image: 'assets/images/sample_image.jpeg',
                     price: '₦50,000.00',
                     rating: '4.5',
                   ),
@@ -432,7 +432,7 @@ class _FurtherPageState extends State<FurtherPage> {
                     index: 46,
                     description:
                         'sads dfwefrge ergeg ergegr   ghfyv jhgfb hgfgftr gytfyjhbjbe egegerxsdjbc ',
-                    image: 'assets/images/sample_image.png',
+                    image: 'assets/images/sample_image.jpeg',
                     price: '₦50,000.00',
                     rating: '4.5',
                   ),
@@ -440,7 +440,7 @@ class _FurtherPageState extends State<FurtherPage> {
                     index: 47,
                     description:
                         'sads dfwefrge ergeg ergegr   ghfyv jhgfb hgfgftr gytfyjhbjbe egegerxsdjbc ',
-                    image: 'assets/images/sample_image.png',
+                    image: 'assets/images/sample_image.jpeg',
                     price: '₦50,000.00',
                     rating: '4.5',
                   ),
@@ -448,7 +448,7 @@ class _FurtherPageState extends State<FurtherPage> {
                     index: 48,
                     description:
                         'sads dfwefrge ergeg ergegr   ghfyv jhgfb hgfgftr gytfyjhbjbe egegerxsdjbc ',
-                    image: 'assets/images/sample_image.png',
+                    image: 'assets/images/sample_image.jpeg',
                     price: '₦50,000.00',
                     rating: '4.5',
                   ),
@@ -456,7 +456,7 @@ class _FurtherPageState extends State<FurtherPage> {
                     index: 49,
                     description:
                         'sads dfwefrge ergeg ergegr   ghfyv jhgfb hgfgftr gytfyjhbjbe egegerxsdjbc ',
-                    image: 'assets/images/sample_image.png',
+                    image: 'assets/images/sample_image.jpeg',
                     price: '₦50,000.00',
                     rating: '4.5',
                   ),

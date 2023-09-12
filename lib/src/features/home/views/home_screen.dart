@@ -17,7 +17,6 @@ import 'package:bookkeep_app/src/services/local_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:bookkeep_app/src/extension/box_exten.dart';
 
@@ -45,7 +44,7 @@ class _HomeState extends ConsumerState<Home> {
         expenditure = double.parse(value.walletBalance).toStringAsFixed(2);
         isCustomer = value.isCustomer;
         isServiceProvider = value.isServiceProvider;
-       
+
         // accessLevel = AccessLevel.demo;
       });
       setState(() {});
@@ -81,28 +80,27 @@ class _HomeState extends ConsumerState<Home> {
                         mainAxisAlignment: MainAxisAlignment.start,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          isServiceProvider ?
-                          const Text(
-                            'Welcome back Service Provider, ',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: BookKeepingColors.backgroundColour,
-                            ),
-                          )
-                          :
-                        const  Text(
-                            'Welcome back, ',
-                            style: TextStyle(
-                              fontSize: 16,
-                              fontWeight: FontWeight.w400,
-                              color: BookKeepingColors.backgroundColour,
-                            ),
-                          ),
+                          isServiceProvider
+                              ? Text(
+                                  'Welcome back Service Provider, ',
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: BookKeepingColors.backgroundColour,
+                                  ),
+                                )
+                              : Text(
+                                  'Welcome back, ',
+                                  style: TextStyle(
+                                    fontSize: 16.sp,
+                                    fontWeight: FontWeight.w400,
+                                    color: BookKeepingColors.backgroundColour,
+                                  ),
+                                ),
                           Text(
                             name,
-                            style: const TextStyle(
-                              fontSize: 24,
+                            style: TextStyle(
+                              fontSize: 24.sp,
                               fontWeight: FontWeight.w600,
                               color: BookKeepingColors.backgroundColour,
                             ),
@@ -152,7 +150,7 @@ class _HomeState extends ConsumerState<Home> {
                   ),
                   26.sbH,
                   Container(
-                    height: 88.h,
+                    height: 92.h,
                     width: double.maxFinite,
                     decoration: BoxDecoration(
                         color: BookKeepingColors.backgroundColour,
@@ -164,29 +162,31 @@ class _HomeState extends ConsumerState<Home> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Total income',
-                              style: TextStyle(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w400,
-                                color: BookKeepingColors.green,
+                        FittedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Total Income',
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: BookKeepingColors.green,
+                                ),
                               ),
-                            ),
-                            4.sbH,
-                            Text(
-                              'NGN $income',
-                              style: TextStyle(
-                                fontSize: 32.sp,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
+                              4.sbH,
+                              Text(
+                                'NGN $income',
+                                style: TextStyle(
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                            2.sbH
-                          ],
+                              2.sbH
+                            ],
+                          ),
                         ),
                         VerticalDivider(
                           width: 57.h,
@@ -195,29 +195,31 @@ class _HomeState extends ConsumerState<Home> {
                           endIndent: 17.h,
                           indent: 17.h,
                         ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Total Expenses',
-                              style: TextStyle(
-                                fontSize: 20.sp,
-                                fontWeight: FontWeight.w400,
-                                color: BookKeepingColors.failureColor,
+                        FittedBox(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Text(
+                                'Total Expenses',
+                                style: TextStyle(
+                                  fontSize: 14.sp,
+                                  fontWeight: FontWeight.w400,
+                                  color: BookKeepingColors.failureColor,
+                                ),
                               ),
-                            ),
-                            4.sbH,
-                            Text(
-                              'NGN $expenditure',
-                              style: TextStyle(
-                                fontSize: 32.sp,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.black,
+                              4.sbH,
+                              Text(
+                                'NGN $expenditure',
+                                style: TextStyle(
+                                  fontSize: 24.sp,
+                                  fontWeight: FontWeight.w600,
+                                  color: Colors.black,
+                                ),
                               ),
-                            ),
-                            2.sbH
-                          ],
+                              2.sbH
+                            ],
+                          ),
                         ),
                       ],
                     ),
@@ -236,7 +238,7 @@ class _HomeState extends ConsumerState<Home> {
                   height: 140.625.h,
                   color: BookKeepingColors.tabColor,
                 ),
-                23.69.sbH,
+                5.sbH,
                 Text(
                   'Oops! Nothing to show for now',
                   style: TextStyle(

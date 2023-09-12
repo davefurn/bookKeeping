@@ -29,6 +29,7 @@ class MarketPlace extends StatefulWidget {
 }
 
 class _MarketPlaceState extends State<MarketPlace> {
+  bool isVisible = false;
   @override
   Widget build(BuildContext context) {
     SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
@@ -56,89 +57,172 @@ class _MarketPlaceState extends State<MarketPlace> {
       ),
       body: Column(
         children: [
-          32.sbH,
+          18.sbH,
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 20.w),
+            child: Container(
+              width: double.maxFinite,
+              height: 200.h,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8.r),
+                gradient: const LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [Color(0xff000D0E), Color(0xff004346)],
+                ),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  24.sbH,
+                  Text(
+                    'Wallet Balance',
+                    style: TextStyle(
+                      fontSize: 16.sp,
+                      color: BookKeepingColors.backgroundColour,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                  8.sbH,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Text(
+                        isVisible ? 'NGN 200,000.00' : '***************',
+                        style: TextStyle(
+                          fontSize: 32.sp,
+                          color: BookKeepingColors.backgroundColour,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      8.sbW,
+                      GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isVisible = !isVisible;
+                            });
+                          },
+                          child: Icon(
+                            isVisible ? Icons.visibility : Icons.visibility_off,
+                            size: 24.sp,
+                            color: BookKeepingColors.backgroundColour,
+                          ))
+                    ],
+                  ),
+                  18.sbH,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 40.h,
+                        width: 146.w,
+                        decoration: BoxDecoration(
+                          color: BookKeepingColors.backgroundColour,
+                          borderRadius: BorderRadius.circular(100.r),
+                        ),
+                        child: Center(
+                          child: Text(
+                            'Transcation History',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: BookKeepingColors.secondaryColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                      20.sbW,
+                      Container(
+                        height: 40.h,
+                        width: 146.w,
+                        decoration: BoxDecoration(
+                          color: BookKeepingColors.backgroundColour,
+                          borderRadius: BorderRadius.circular(100.r),
+                        ),
+                         child: Center(
+                          child: Text(
+                            'Withdraw Funds',
+                            style: TextStyle(
+                              fontSize: 14.sp,
+                              color: BookKeepingColors.secondaryColor,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )
+                ],
+              ),
+            ),
+          ),
           Padding(
             padding: EdgeInsets.symmetric(horizontal: 20.w),
             child: SizedBox(
               height: 500.h,
-              child: GridView.count(
-                mainAxisSpacing: 15.h,
-                crossAxisSpacing: 15.h,
-                crossAxisCount: 2,
-                children: [
-                  GridViewP(
-                    icon: Icons.money,
-                    onpressed: () {
-                      pushTo(context, const AccountingView());
-                    },
-                    text: "Accounting",
-                  ),
-                  GridViewP(
-                    icon: Icons.balance_outlined,
-                    onpressed: () {
-                        pushTo(context, const LawView());
-                    },
-                    text: "Law",
-                  ),
-                  GridViewP(
-                    icon: Icons.data_exploration,
-                    onpressed: () {
-                       pushTo(context, const DataView());
-                    },
-                    text: "Data",
-                  ),
-                ],
+              child: ListView.builder(
+                itemCount: 3,
+                itemBuilder: (context, index) {
+                  List<IconData> pagesIcons = const [
+                    Icons.money,
+                    Icons.balance_outlined,
+                    Icons.data_exploration,
+                  ];
+                  List<String> pageDescription = const [
+                    'Tax Filling, Simple Book-Keeping, Financial Anaylst...',
+                    'Legal Advice, Draft Lawsuit, Legal Complaints...',
+                    'Date Analyst, Business Analyst, Data Admin...',
+                  ];
+                  List<String> pagesTitle = const [
+                    'Accounting',
+                    'Law',
+                    'Data',
+                  ];
+                  List<Widget> pages = const [
+                    AccountingView(),
+                    LawView(),
+                    DataView()
+                  ];
+                  return Padding(
+                    padding: EdgeInsets.symmetric(vertical: 24.h),
+                    child: ListTile(
+                      subtitle: Text(
+                        pageDescription[index],
+                        style: TextStyle(
+                          fontSize: 14.sp,
+                          color: BookKeepingColors.secondaryColor,
+                          fontWeight: FontWeight.w400,
+                        ),
+                      ),
+                      leading: CircleAvatar(
+                        radius: 32.r,
+                        backgroundColor: BookKeepingColors.mainColor,
+                        child: Icon(
+                          pagesIcons[index],
+                          size: 32,
+                          color: BookKeepingColors.backgroundColour,
+                        ),
+                      ),
+                      title: Text(
+                        pagesTitle[index],
+                        style: TextStyle(
+                            fontSize: 20.sp,
+                            color: BookKeepingColors.secondaryColor,
+                            fontWeight: FontWeight.w600),
+                      ),
+                      tileColor: const Color(0xffFBFBFB),
+                      onTap: () {
+                        pushTo(context, pages[index]);
+                      },
+                    ),
+                  );
+                },
               ),
             ),
           )
         ],
-      ),
-    );
-  }
-}
-
-class GridViewP extends StatelessWidget {
-  final VoidCallback onpressed;
-  final IconData icon;
-  final String text;
-  const GridViewP({
-    super.key,
-    required this.onpressed,
-    required this.icon,
-    required this.text,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onpressed,
-      child: Container(
-        width: 185.w,
-        height: 162.h,
-        color: BookKeepingColors.onboardingWhiteColour,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            CircleAvatar(
-              radius: 32.r,
-              backgroundColor: BookKeepingColors.mainColor,
-              child: Icon(
-                icon,
-                size: 32,
-                color: BookKeepingColors.backgroundColour,
-              ),
-            ),
-            16.sbH,
-            Text(
-              text,
-              style: TextStyle(
-                  fontSize: 20.sp,
-                  color: BookKeepingColors.secondaryColor,
-                  fontWeight: FontWeight.w600),
-            )
-          ],
-        ),
       ),
     );
   }

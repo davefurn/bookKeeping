@@ -1,19 +1,15 @@
-import 'dart:async';
 import 'dart:io';
 
-import 'package:bookkeep_app/src/constants/colors.dart';
-import 'package:bookkeep_app/src/features/authentication/views/login/login.dart';
+import 'package:bookkeep_app/src/features/authentication/views/login/imports.dart';
+
 import 'package:bookkeep_app/src/features/book_keeping/views/book_keeping_screen.dart';
 import 'package:bookkeep_app/src/features/home/views/home_screen.dart';
 import 'package:bookkeep_app/src/features/marketplace/marketplace.dart';
 import 'package:bookkeep_app/src/features/more/views/more.dart';
-import 'package:bookkeep_app/src/router/app_routes.dart';
-import 'package:bookkeep_app/src/services/post_requests.dart';
+
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
 late BuildContext globalContext;
 late CupertinoTabController controller;
@@ -87,8 +83,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(8.r),
             ),
-            title: SvgPicture.asset(
-              'assets/svgs/info_big.svg',
+            title: Image.asset(
+              'assets/images/nothing.png',
               color: const Color(0xff0E5CE3),
               width: 34.r,
               height: 34.r,
@@ -139,49 +135,62 @@ class _HomeScreenState extends ConsumerState<HomeScreen>
             currentIndex = value;
           },
           height: Platform.isAndroid ? 60.h : 60.h,
-          items: const [
+          items: [
             BottomNavigationBarItem(
-              icon: Icon(
-                Icons.dashboard,
+              icon: Image.asset(
+                'assets/images/grid1.png',
+                height: 24.h,
+                width: 24.w,
                 color: BookKeepingColors.tabColor,
               ),
-              activeIcon: Icon(
-                Icons.dashboard,
-                color: BookKeepingColors.mainColor,
+              activeIcon: Image.asset(
+                'assets/images/grid.png',
+                height: 24.h,
+                width: 24.w,
               ),
-              label: 'Dashboard\n',
+              label: 'Dashboard',
             ),
             BottomNavigationBarItem(
-              icon: Icon(
-                Icons.menu_book,
+              icon: Image.asset(
+                'assets/images/mdi_book-open-page-variant-outline1.png',
+                height: 24.h,
+                width: 24.w,
                 color: BookKeepingColors.tabColor,
               ),
-              activeIcon: Icon(
-                Icons.menu_book,
-                color: BookKeepingColors.mainColor,
+              activeIcon: Image.asset(
+                'assets/images/mdi_book-open-page-variant-outline.png',
+                height: 24.h,
+                width: 24.w,
               ),
-              label: 'Bookkeeping\n',
+              label: 'Bookkeeping',
             ),
             BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.shopping_cart,
-                  color: BookKeepingColors.tabColor,
-                ),
-                activeIcon: Icon(
-                  Icons.shopping_cart,
-                  color: BookKeepingColors.mainColor,
-                ),
-                label: 'Marketplace\n'),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.more_rounded,
+              icon: Image.asset(
+                'assets/images/map_grocery-or-supermarket1.png',
+                height: 24.h,
+                width: 24.w,
                 color: BookKeepingColors.tabColor,
               ),
-              activeIcon: Icon(
-                Icons.more_rounded,
-                color: BookKeepingColors.mainColor,
+              activeIcon: Image.asset(
+                'assets/images/map_grocery-or-supermarket.png',
+                height: 24.h,
+                width: 24.w,
               ),
-              label: 'More\n',
+              label: 'Marketplace',
+            ),
+            BottomNavigationBarItem(
+              icon: Image.asset(
+                'assets/images/ellipsis-horizontal-circle-sharp1.png',
+                height: 24.h,
+                width: 24.w,
+                color: BookKeepingColors.tabColor,
+              ),
+              activeIcon: Image.asset(
+                'assets/images/ellipsis-horizontal-circle-sharp.png',
+                height: 24.h,
+                width: 24.w,
+              ),
+              label: 'More',
             ),
           ],
         ),

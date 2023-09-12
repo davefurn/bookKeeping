@@ -16,6 +16,7 @@ import 'package:bookkeep_app/src/features/authentication/views/login/imports.dar
 import 'package:bookkeep_app/src/features/marketplace/accounting/views/tax_filing.dart';
 import 'package:bookkeep_app/src/features/marketplace/widget/app_error_widget.dart';
 import 'package:bookkeep_app/src/riverpod/providers.dart';
+import 'package:bookkeep_app/src/services/get_request.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../widget/special_button_2.dart';
@@ -46,19 +47,19 @@ class _AccountingViewState extends ConsumerState<AccountingView> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-      const CircularProgressIndicator(
-        strokeWidth: 3,
-        color: BookKeepingColors.mainColor,
-        backgroundColor: BookKeepingColors.backgroundColour,
-      ),
-      4.sbH,
-      Text('Loading accounting industries...',
-          style: TextStyle(
-              fontSize: 16.sp,
-              color: BookKeepingColors.mainColor,
-              fontWeight: FontWeight.w600))
-      ],
+        children: [
+          const CircularProgressIndicator(
+            strokeWidth: 3,
+            color: BookKeepingColors.mainColor,
+            backgroundColor: BookKeepingColors.backgroundColour,
+          ),
+          4.sbH,
+          Text('Loading accounting industries...',
+              style: TextStyle(
+                  fontSize: 16.sp,
+                  color: BookKeepingColors.mainColor,
+                  fontWeight: FontWeight.w600))
+        ],
       ),
     );
   }
@@ -128,28 +129,29 @@ class _AccountingViewState extends ConsumerState<AccountingView> {
                                 setState(() {});
                                 //   paginationModel.page = 1;
                                 //   paginationModel.total = 100;
-                                //   var _ = await ref
-                                //       .refresh(allAccountingIndustriesProvider().future);
-                                //   refreshController.refreshCompleted();
+                                var _ = ref
+                                    .refresh(allAccountingIndustriesProvider);
+                                refreshController.refreshCompleted();
                               },
                               onLoading: () async {
-                                // if (value!.length != paginationModel.total) {
-                                //   try {
-                                //     paginationModel.page += 1;
-                                //     final a =
-                                //         await GetRequest.getHistory(paginationModel);
-                                //     var b = (a!.data!['data']['data'] as List)
-                                //         .map((e) => HistoryModel.fromJson(e))
-                                //         .toList();
-                                //     value!.addAll(b);
-                                //     refreshController.loadComplete();
-                                //     setState(() {});
-                                //   } catch (_) {
-                                //     refreshController.refreshFailed();
-                                //   }
-                                // } else {
-                                //   refreshController.loadNoData();
-                                // }
+                                int paginationModel = 100;
+                                if (value!.length != paginationModel) {
+                                  try {
+                                    final a = await GetRequest
+                                        .getAllAccountingIndustries();
+                                    var b = (a!.data! as List)
+                                        .map((e) => AllAcountingIndustriesModel
+                                            .fromJson(e))
+                                        .toList();
+                                    value!.addAll(b);
+                                    refreshController.loadComplete();
+                                    setState(() {});
+                                  } catch (_) {
+                                    refreshController.refreshFailed();
+                                  }
+                                } else {
+                                  refreshController.loadNoData();
+                                }
                               },
                               child: ListView.separated(
                                 itemCount: value!.length,

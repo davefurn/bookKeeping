@@ -2,12 +2,14 @@ import 'package:bookkeep_app/src/features/authentication/views/auth/auth.dart';
 import 'package:bookkeep_app/src/services/local_storage.dart';
 import 'package:bookkeep_app/src/utils/theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'src/features/settings/models/settings_models.dart';
 
 void main() async {
+  debugPaintSizeEnabled = false;
    WidgetsFlutterBinding.ensureInitialized();
   
   await SystemChrome.setPreferredOrientations([
@@ -55,6 +57,7 @@ class _MyAppState extends State<MyApp> {
           designSize: const Size(430, 932),
           builder: (context, _) {
             return MaterialApp(
+              
               restorationScopeId: 'app',
               title: 'Kuro Bookkeeping',
               debugShowCheckedModeBanner: false,

@@ -40,6 +40,12 @@ class _LoginServiceState extends State<LoginService> {
     });
   }
 
+  final String checkAll =
+      r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+  final String checkSpecial = r'^(?=.*?[!@#\$&*~])';
+  final String checkLetters = r'^(?=.*?[A-Z])(?=.*?[a-z])';
+  final String checkNumbers = r'^(?=.*?[0-9])';
+
   @override
   void dispose() {
     emailController.dispose();
@@ -123,14 +129,18 @@ class _LoginServiceState extends State<LoginService> {
                     ? AutovalidateMode.onUserInteraction
                     : AutovalidateMode.disabled,
                 validator: (v) {
-                  if ((v == null || v.isEmpty) ||
-                      !RegExp(r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*.:;+=-?&])[A-Za-z\d@$!%*.?&]{8,}$')
-                          .hasMatch(v)) {
-                    return 'Please enter a password';
-                  } else if (v.length < 6) {
-                    return 'The password is too short';
+                  if (v == null || v.isEmpty || v.trim().length < 8) {
+                    return 'Password has to be 8 characters or more!';
+                  } else if (!RegExp(checkLetters).hasMatch(v)) {
+                    return 'Password has to contain Uppercase and Lowercase letters!';
+                  } else if (!RegExp(checkNumbers).hasMatch(v)) {
+                    return 'Password has to contain numbers!';
+                  } else if (!RegExp(checkSpecial).hasMatch(v)) {
+                    return 'Password has to contain a special character!';
+                  } else if (v != passwordController.text) {
+                    return "Password not similar";
                   }
-                  return null;
+                  return null; // to indicate a success
                 },
                 enableSuggestions: false,
                 textInputAction: TextInputAction.done,

@@ -67,7 +67,7 @@ class _OrdersMarketState extends State<OrdersMarket> {
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(6.r),
                       child: Image.asset(
-                        'assets/images/sample_image.png',
+                        'assets/images/sample_image.jpeg',
                         height: 116.h,
                         width: 116.w,
                         fit: BoxFit.fill,
